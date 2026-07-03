@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Urdu — উর্দু শব্দভান্ডার</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&family=Noto+Serif+Bengali:wght@400;500;600&family=Amiri:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0f0e0d;--ink2:#4a4845;--ink3:#9a9793;
+  --paper:#f7f5f0;--card:#ffffff;--card2:#faf9f6;
+  --line:#e8e5df;--line2:#d4d0c8;
+  --violet:#4c3d8f;--violet-mid:#6b5aad;--violet-soft:#eeebf8;--violet-glow:rgba(76,61,143,.12);
+  --gold:#9a6f2e;--gold-soft:#fdf6e8;
+  --green:#2a6b47;--green-soft:#eaf4ee;
+  --red:#b83232;--red-soft:#fceaea;
+  --amber:#b8722f;--amber-soft:#fdf1e6;
+  --r:14px;--r-sm:9px;
+  --sh-sm:0 1px 3px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.03);
+  --sh-md:0 4px 16px rgba(0,0,0,.07),0 2px 4px rgba(0,0,0,.04);
+  --sh-lg:0 16px 48px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.06);
+  --sh-violet:0 8px 32px rgba(76,61,143,.20);
+}
+[data-theme="dark"]{
+  --ink:#edeae4;--ink2:#9a9793;--ink3:#5a5753;
+  --paper:#111010;--card:#1a1918;--card2:#201f1e;
+  --line:#2a2927;--line2:#3a3835;
+  --violet:#9b8dd4;--violet-mid:#b8aee0;--violet-soft:#1e1a2e;--violet-glow:rgba(155,141,212,.12);
+  --gold:#d4a84b;--gold-soft:#1e1a10;
+  --green:#5acd88;--green-soft:#0e1f18;
+  --red:#e87272;--red-soft:#200e0e;
+  --amber:#e0a45f;--amber-soft:#241a0e;
+  --sh-sm:0 1px 3px rgba(0,0,0,.4);
+  --sh-md:0 4px 16px rgba(0,0,0,.5);
+  --sh-lg:0 16px 48px rgba(0,0,0,.6);
+  --sh-violet:0 8px 32px rgba(155,141,212,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:
+  radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0) 0 0/22px 22px,
+  var(--paper);
+  color:var(--ink);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh;}
+button{font-family:'DM Sans',sans-serif;}
+:focus-visible{outline:2px solid var(--violet);outline-offset:2px;}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.001ms !important;transition-duration:.001ms !important;}}
+
+nav{background:var(--card);border-bottom:1px solid var(--line);padding:0 20px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--sh-sm);gap:10px;}
+.nav-brand{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.nav-logo{width:36px;height:36px;background:linear-gradient(135deg,var(--violet) 0%,var(--violet-mid) 100%);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;font-family:'Amiri',serif;box-shadow:var(--sh-violet);flex-shrink:0;}
+.nav-name{font-size:15px;font-weight:600;letter-spacing:-.2px;}
+.nav-sub{font-size:11px;color:var(--ink3);font-family:'Noto Serif Bengali',serif;margin-top:1px;}
+.nav-center{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
+.nav-center::-webkit-scrollbar{display:none;}
+.ntab{padding:7px 14px;border-radius:8px;border:none;background:none;color:var(--ink2);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;letter-spacing:-.1px;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+.ntab:hover{background:var(--paper);color:var(--ink);}
+.ntab.on{background:var(--violet-soft);color:var(--violet);}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.streak-pill{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1px solid var(--line);border-radius:20px;background:var(--amber-soft);color:var(--amber);font-size:12px;font-weight:700;white-space:nowrap;}
+.theme-toggle{width:36px;height:36px;border:1px solid var(--line);border-radius:9px;background:none;cursor:pointer;color:var(--ink2);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.theme-toggle:hover{background:var(--paper);}
+.wrap{max-width:940px;margin:0 auto;padding:32px 20px 60px;}
+.page{display:none;animation:fadeUp .25s ease;}
+.page.on{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+.wotd-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--violet) 0%,#7c3aed 60%,#9b4de8 100%);border-radius:20px;padding:36px 40px 32px;margin-bottom:28px;box-shadow:var(--sh-violet);color:#fff;}
+.wotd-hero::before{content:'اُردو';position:absolute;right:-10px;top:-20px;font-size:180px;font-family:'Amiri',serif;opacity:.08;line-height:1;pointer-events:none;color:#fff;white-space:nowrap;}
+.wotd-eyebrow{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;opacity:.75;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.wotd-eyebrow::before{content:'';display:block;width:24px;height:1px;background:rgba(255,255,255,.5);}
+.wotd-word-row{display:flex;align-items:center;gap:12px;}
+.wotd-word{font-family:'DM Serif Display',serif;font-size:52px;letter-spacing:-1px;line-height:1;margin-bottom:8px;font-style:italic;}
+.wotd-speak{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:8px;transition:background .15s;}
+.wotd-speak:hover{background:rgba(255,255,255,.25);}
+.wotd-day{font-size:12px;opacity:.7;letter-spacing:.5px;margin-bottom:20px;}
+.wotd-meanings{display:flex;gap:20px;flex-wrap:wrap;}
+.wotd-m{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 16px;flex:1;min-width:140px;backdrop-filter:blur(4px);}
+.wotd-m .ml{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;opacity:.6;margin-bottom:4px;}
+.wotd-m .mv{font-size:14px;font-weight:500;line-height:1.4;}
+.wotd-m .mv.bn{font-family:'Noto Serif Bengali',serif;font-size:13px;}
+.wotd-day-badge{position:absolute;top:24px;right:28px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:600;opacity:.9;backdrop-filter:blur(4px);}
+
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh-sm);}
+.stat .sl{font-size:9px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:5px;}
+.stat .sv{font-size:28px;font-weight:600;letter-spacing:-1px;line-height:1;color:var(--ink);}
+.stat .ss{font-size:11px;color:var(--ink3);margin-top:3px;font-family:'Noto Serif Bengali',serif;}
+
+.day-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+.dpill{padding:6px 15px;border:1px solid var(--line);border-radius:20px;background:var(--card);color:var(--ink2);font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;}
+.dpill:hover{border-color:var(--violet);color:var(--violet);}
+.dpill.on{background:var(--violet);border-color:var(--violet);color:#fff;}
+.dpill .dc{font-size:9px;padding:1px 6px;border-radius:10px;background:rgba(255,255,255,.2);}
+.dpill:not(.on) .dc{background:var(--paper);color:var(--ink3);}
+
+.controls{display:flex;gap:8px;margin-bottom:12px;}
+.srch-wrap{flex:1;position:relative;}
+.srch-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none;}
+.srch-inp{width:100%;padding:11px 13px 11px 40px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);color:var(--ink);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s,box-shadow .15s;}
+.srch-inp:focus{border-color:var(--violet);box-shadow:0 0 0 3px var(--violet-soft);}
+.srch-inp::placeholder{color:var(--ink3);}
+.sort-sel{padding:11px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);color:var(--ink2);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;}
+.rmeta{font-size:11px;color:var(--ink3);margin-bottom:14px;}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:12px;}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sh-sm);transition:box-shadow .2s,transform .2s,border-color .15s;position:relative;cursor:default;display:flex;flex-direction:column;}
+.wcard:hover{box-shadow:var(--sh-md);transform:translateY(-2px);border-color:var(--line2);}
+.wcard.bm{border-color:var(--gold);}
+.wcard.bm::after{content:'';position:absolute;top:0;right:20px;width:3px;height:26px;background:var(--gold);border-radius:0 0 3px 3px;}
+.wcard.known{border-color:var(--green);}
+.wcard-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:8px;}
+.wcard-num{font-size:10px;color:var(--ink3);font-variant-numeric:tabular-nums;font-weight:500;padding-top:6px;}
+.wcard-actions{display:flex;gap:6px;flex-shrink:0;}
+.icon-btn{width:30px;height:30px;border-radius:7px;border:1px solid var(--line);background:none;cursor:pointer;color:var(--ink3);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+.icon-btn:hover{background:var(--paper);}
+.icon-btn.bm-on{background:var(--gold-soft);border-color:var(--gold);color:var(--gold);}
+.icon-btn.kn-on{background:var(--green-soft);border-color:var(--green);color:var(--green);}
+.wcard-word{font-family:'DM Serif Display',serif;font-size:26px;letter-spacing:-.3px;line-height:1;color:var(--ink);font-style:italic;margin-bottom:5px;}
+.wcard-ph{font-size:11px;color:var(--violet);font-family:'DM Sans',sans-serif;letter-spacing:.3px;margin-bottom:10px;display:flex;align-items:center;gap:5px;min-height:20px;}
+.ph-icon{width:20px;height:20px;border-radius:5px;background:var(--violet-soft);display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;flex-shrink:0;transition:background .15s;}
+.ph-icon:hover{background:var(--violet);color:#fff;}
+.wcard-dtag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);padding:3px 9px;border-radius:20px;margin-bottom:12px;width:fit-content;}
+.wcard-sep{height:1px;background:var(--line);margin:0 0 12px;}
+.wcard-en{font-size:13px;color:var(--ink);font-weight:500;margin-bottom:6px;line-height:1.4;}
+.wcard-bn{font-size:12px;color:var(--ink2);font-family:'Noto Serif Bengali',serif;line-height:1.5;}
+.wcard-bn-label{font-size:9px;color:var(--ink3);font-family:'DM Sans',sans-serif;margin-right:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+mark{background:var(--violet-soft);color:var(--violet);border-radius:2px;padding:0 1px;}
+.empty{grid-column:1/-1;text-align:center;padding:64px 20px;color:var(--ink3);font-size:14px;}
+.empty .eico{font-size:40px;margin-bottom:14px;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:var(--paper);padding:10px 20px;border-radius:30px;font-size:13px;font-weight:500;opacity:0;transition:all .25s;pointer-events:none;z-index:1000;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* QUIZ */
+.quiz-wrap{max-width:560px;margin:0 auto;}
+.qsetup{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:36px;box-shadow:var(--sh-md);}
+.qsetup h2{font-size:22px;font-weight:600;letter-spacing:-.3px;}
+.qsetup p{color:var(--ink2);font-size:13px;margin-top:4px;}
+.qsetup-divider{height:1px;background:var(--line);margin:24px 0;}
+.frow{margin-bottom:18px;}
+.flabel{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px;display:block;}
+.fsel{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card);color:var(--ink);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;}
+.qtype-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.qtcard{padding:14px 16px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--card2);cursor:pointer;transition:all .15s;text-align:left;}
+.qtcard:hover{border-color:var(--violet);}
+.qtcard.on{border-color:var(--violet);background:var(--violet-soft);}
+.qtcard .qt-icon{font-size:22px;margin-bottom:6px;}
+.qtcard .qt-name{font-size:13px;font-weight:600;color:var(--ink);}
+.qtcard.on .qt-name{color:var(--violet);}
+.qtcard .qt-desc{font-size:11px;color:var(--ink3);margin-top:2px;}
+.diff-row{display:flex;gap:6px;}
+.diff-btn{flex:1;padding:9px 8px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--card2);cursor:pointer;font-size:11px;font-weight:600;color:var(--ink2);transition:all .15s;}
+.diff-btn:hover{border-color:var(--violet);}
+.diff-btn.on{border-color:var(--violet);background:var(--violet-soft);color:var(--violet);}
+.chk-row{display:flex;align-items:center;gap:8px;padding:11px 13px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--card2);cursor:pointer;}
+.chk-row input{width:16px;height:16px;accent-color:var(--violet);cursor:pointer;}
+.chk-row span{font-size:12px;color:var(--ink2);}
+.start-btn{width:100%;padding:14px;margin-top:24px;background:linear-gradient(135deg,var(--violet),var(--violet-mid));color:#fff;border:none;border-radius:var(--r-sm);font-size:14px;font-weight:600;cursor:pointer;letter-spacing:-.1px;transition:opacity .15s;box-shadow:var(--sh-violet);}
+.start-btn:hover{opacity:.92;}
+.start-btn:disabled{opacity:.5;cursor:not-allowed;}
+.qarena{display:none;}
+.qarena.on{display:block;}
+.qbar-wrap{margin-bottom:20px;}
+.qbar-track{height:5px;background:var(--line);border-radius:5px;overflow:hidden;}
+.qbar-fill{height:100%;background:linear-gradient(90deg,var(--violet),var(--violet-mid));border-radius:5px;transition:width .4s ease;}
+.qbar-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12px;color:var(--ink3);}
+.qscores{display:flex;gap:14px;}
+.qscore{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:500;}
+.qscore.c{color:var(--green);}
+.qscore.w{color:var(--red);}
+.fc-scene{perspective:1000px;margin-bottom:16px;}
+.fc-card{width:100%;min-height:240px;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);cursor:pointer;}
+.fc-card.flip{transform:rotateY(180deg);}
+.fc-face{position:absolute;width:100%;min-height:240px;backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--sh-md);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;}
+.fc-back{transform:rotateY(180deg);}
+.fc-front .fc-tag{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;}
+.fc-front .fc-w{font-family:'DM Serif Display',serif;font-size:38px;font-style:italic;color:var(--ink);margin-bottom:8px;letter-spacing:-.5px;word-break:break-word;}
+.fc-front .fc-ph{font-size:12px;color:var(--violet);letter-spacing:.4px;min-height:16px;}
+.fc-front .fc-tap{font-size:11px;color:var(--ink3);margin-top:16px;display:flex;align-items:center;gap:5px;}
+.fc-back .fc-btag{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;background:var(--violet-soft);color:var(--violet);padding:3px 10px;border-radius:10px;margin-bottom:14px;}
+.fc-back .fc-bw{font-family:'DM Serif Display',serif;font-size:26px;font-style:italic;color:var(--ink);margin-bottom:10px;}
+.fc-back .fc-ben{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:6px;line-height:1.4;}
+.fc-back .fc-bbn{font-size:14px;font-family:'Noto Serif Bengali',serif;color:var(--ink2);}
+.fc-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;}
+.fcbtn{padding:12px 10px;border-radius:var(--r-sm);border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:12px;font-weight:600;color:var(--ink2);transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;}
+.fcbtn:hover{transform:translateY(-1px);box-shadow:var(--sh-sm);}
+.fcbtn.bad:hover{background:var(--red-soft);border-color:var(--red);color:var(--red);}
+.fcbtn.skip:hover{background:var(--violet-soft);border-color:var(--violet);color:var(--violet);}
+.fcbtn.good:hover{background:var(--green-soft);border-color:var(--green);color:var(--green);}
+.kbd-hint{text-align:center;font-size:10.5px;color:var(--ink3);margin-bottom:14px;}
+.kbd-hint kbd{background:var(--card2);border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-family:inherit;font-size:10px;}
+.mcq-qcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px;box-shadow:var(--sh-md);text-align:center;margin-bottom:14px;}
+.mcq-qlabel{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;}
+.mcq-qword{font-family:'DM Serif Display',serif;font-size:40px;font-style:italic;color:var(--ink);letter-spacing:-.5px;margin-bottom:6px;word-break:break-word;}
+.mcq-qph{font-size:12px;color:var(--violet);letter-spacing:.4px;}
+.mcq-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mcqopt{padding:15px 16px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--card);cursor:pointer;text-align:left;font-size:13px;color:var(--ink2);transition:all .15s;font-family:'DM Sans',sans-serif;line-height:1.4;position:relative;}
+.mcqopt .okey{float:left;font-size:10px;color:var(--ink3);font-weight:700;margin-right:7px;}
+.mcqopt:hover:not(.dis){border-color:var(--violet);color:var(--violet);background:var(--violet-soft);}
+.mcqopt.ok{border-color:var(--green);background:var(--green-soft);color:var(--green);font-weight:600;}
+.mcqopt.ng{border-color:var(--red);background:var(--red-soft);color:var(--red);}
+.mcqopt.dis{cursor:default;pointer-events:none;}
+.mcq-nxt{width:100%;padding:13px;background:var(--violet);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;font-weight:600;cursor:pointer;margin-top:12px;display:none;transition:opacity .15s;}
+.mcq-nxt:hover{opacity:.9;}
+.mcq-nxt.vis{display:block;}
+.qresult{display:none;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:44px 32px;box-shadow:var(--sh-lg);text-align:center;}
+.qresult.on{display:block;}
+.res-emoji{font-size:52px;margin-bottom:20px;}
+.res-ring-wrap{margin:0 auto 24px;width:120px;height:120px;position:relative;}
+.res-ring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--ink);background:conic-gradient(var(--violet) 0%,var(--line) 0%);transition:background 1s ease;}
+.res-ring::before{content:'';position:absolute;width:88px;height:88px;border-radius:50%;background:var(--card);top:16px;left:16px;}
+.res-ring span{position:relative;z-index:1;}
+.res-title{font-size:24px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px;}
+.res-msg{color:var(--ink2);font-size:13px;line-height:1.6;margin-bottom:28px;}
+.res-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:28px;}
+.res-stat{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px;}
+.res-stat .rs-val{font-size:24px;font-weight:700;letter-spacing:-.5px;}
+.res-stat .rs-lbl{font-size:10px;color:var(--ink3);margin-top:2px;font-weight:500;letter-spacing:.3px;text-transform:uppercase;}
+.res-stat.c .rs-val{color:var(--green);}
+.res-stat.w .rs-val{color:var(--red);}
+.wrong-review{text-align:left;margin-bottom:24px;}
+.wr-head{font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.wr-head::after{content:'';flex:1;height:1px;background:var(--line);}
+.wr-list{display:flex;flex-direction:column;gap:6px;}
+.wr-item{background:var(--red-soft);border:1px solid var(--red);border-radius:var(--r-sm);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;}
+.wi-word{font-family:'DM Serif Display',serif;font-style:italic;font-size:16px;}
+.wi-en{font-size:12px;color:var(--ink2);}
+.res-btns{display:flex;gap:8px;}
+.resbtn{flex:1;padding:12px;border-radius:var(--r-sm);border:1px solid var(--line);font-size:13px;font-weight:600;cursor:pointer;background:var(--card);color:var(--ink2);transition:all .15s;}
+.resbtn.prim{background:linear-gradient(135deg,var(--violet),var(--violet-mid));color:#fff;border-color:transparent;box-shadow:var(--sh-violet);}
+.resbtn:not(.prim):hover{background:var(--paper);}
+.resbtn.prim:hover{opacity:.9;}
+
+/* BOOKMARKS */
+.bm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap;}
+.bm-head h2{font-size:20px;font-weight:700;letter-spacing:-.3px;}
+.bm-count{font-size:12px;color:var(--ink3);}
+.bm-head-btns{display:flex;gap:8px;}
+.ghost-btn{font-size:12px;color:var(--ink2);background:none;border:1px solid var(--line);cursor:pointer;padding:7px 13px;border-radius:8px;transition:all .15s;font-weight:500;}
+.ghost-btn:hover{background:var(--paper);border-color:var(--line2);}
+.ghost-btn.danger{color:var(--red);}
+.ghost-btn.danger:hover{background:var(--red-soft);border-color:var(--red);}
+
+/* STATS */
+.stats-grid-top{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.sbox{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 16px;box-shadow:var(--sh-sm);text-align:center;}
+.sbox .sb-ico{font-size:20px;margin-bottom:8px;}
+.sbox .sb-val{font-size:24px;font-weight:700;letter-spacing:-.5px;line-height:1;}
+.sbox .sb-lbl{font-size:10px;color:var(--ink3);margin-top:6px;font-weight:500;letter-spacing:.3px;text-transform:uppercase;}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px 24px;box-shadow:var(--sh-sm);margin-bottom:16px;}
+.panel h3{font-size:14px;font-weight:700;margin-bottom:16px;letter-spacing:-.2px;display:flex;align-items:center;justify-content:space-between;}
+.mastery-bar-wrap{margin-bottom:6px;}
+.mastery-bar-track{height:10px;background:var(--line);border-radius:6px;overflow:hidden;}
+.mastery-bar-fill{height:100%;background:linear-gradient(90deg,var(--green),#4fae7a);border-radius:6px;transition:width .5s ease;}
+.mastery-label{display:flex;justify-content:space-between;font-size:11px;color:var(--ink3);margin-top:6px;}
+.day-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);}
+.day-row:last-child{border-bottom:none;}
+.day-row .dr-lbl{font-size:12px;font-weight:600;color:var(--ink2);width:52px;flex-shrink:0;}
+.day-row .dr-track{flex:1;height:7px;background:var(--line);border-radius:5px;overflow:hidden;}
+.day-row .dr-fill{height:100%;background:var(--violet);border-radius:5px;transition:width .5s ease;}
+.day-row .dr-ct{font-size:11px;color:var(--ink3);width:38px;text-align:right;flex-shrink:0;}
+.hist-list{display:flex;flex-direction:column;gap:8px;}
+.hist-item{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--card2);border:1px solid var(--line);border-radius:var(--r-sm);}
+.hist-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.hist-badge.hi{background:var(--green-soft);color:var(--green);}
+.hist-badge.mid{background:var(--amber-soft);color:var(--amber);}
+.hist-badge.lo{background:var(--red-soft);color:var(--red);}
+.hist-info{flex:1;min-width:0;}
+.hist-type{font-size:12px;font-weight:600;color:var(--ink);}
+.hist-date{font-size:10.5px;color:var(--ink3);}
+.hist-score{font-size:13px;font-weight:700;color:var(--ink);flex-shrink:0;}
+.empty-inline{text-align:center;padding:24px;color:var(--ink3);font-size:12.5px;}
+
+@media(max-width:640px){
+  nav{padding:0 14px;height:54px;}
+  .nav-sub{display:none;}
+  .ntab{padding:6px 10px;font-size:12px;}
+  .streak-pill span.sp-label{display:none;}
+  .wrap{padding:18px 14px 50px;}
+  .wotd-hero{padding:24px 22px 22px;border-radius:16px;}
+  .wotd-word{font-size:36px;}
+  .wotd-meanings{gap:10px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .stats-row .stat:nth-child(1){grid-column:1/-1;}
+  .wgrid{grid-template-columns:1fr;}
+  .qtype-grid{grid-template-columns:1fr;}
+  .mcq-opts{grid-template-columns:1fr;}
+  .stats-grid-top{grid-template-columns:1fr 1fr;}
+  .kbd-hint{display:none;}
+}
+@media(max-width:380px){.wotd-word{font-size:28px;}.stats-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">اُ</div>
+    <div><div class="nav-name">Urdu</div><div class="nav-sub">উর্দু শব্দভান্ডার</div></div>
+  </div>
+  <div class="nav-center">
+    <button class="ntab on" data-pg="dict" onclick="gotoPage('dict',this)">📖 Dictionary</button>
+    <button class="ntab" data-pg="quiz" onclick="gotoPage('quiz',this)">🎯 Quiz</button>
+    <button class="ntab" data-pg="saved" onclick="gotoPage('saved',this)">🔖 Saved</button>
+    <button class="ntab" data-pg="stats" onclick="gotoPage('stats',this)">📊 Stats</button>
+  </div>
+  <div class="nav-right">
+    <div class="streak-pill" id="streak-pill" title="Daily streak">🔥 <span id="streak-val">0</span><span class="sp-label">&nbsp;day</span></div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="thbtn" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</nav>
+<div class="toast" id="toast"></div>
+<div class="wrap">
+
+<!-- DICTIONARY -->
+<div class="page on" id="pg-dict">
+  <div class="wotd-hero">
+    <div class="wotd-eyebrow">آج کا لفظ · Word of the Day</div>
+    <div class="wotd-word-row">
+      <div class="wotd-word" id="wotd-word">—</div>
+      <button class="wotd-speak" onclick="speak(document.getElementById('wotd-word').textContent)" aria-label="Listen">🔊</button>
+    </div>
+    <div class="wotd-day" id="wotd-day">Day —</div>
+    <div class="wotd-day-badge" id="wotd-badge">Day —</div>
+    <div class="wotd-meanings">
+      <div class="wotd-m"><div class="ml">English</div><div class="mv" id="wotd-en">—</div></div>
+      <div class="wotd-m"><div class="ml">বাংলা</div><div class="mv bn" id="wotd-bn">—</div></div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="sl">দেখাচ্ছে</div><div class="sv" id="s-show">—</div><div class="ss" id="s-desc">লোড হচ্ছে…</div></div>
+    <div class="stat"><div class="sl">মোট দিন</div><div class="sv" id="s-days">—</div><div class="ss">days</div></div>
+    <div class="stat"><div class="sl">মোট শব্দ</div><div class="sv" id="s-total">—</div><div class="ss">words</div></div>
+  </div>
+  <div class="day-pills" id="day-pills">লোড হচ্ছে…</div>
+  <div class="controls">
+    <div class="srch-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input class="srch-inp" type="search" id="srch" placeholder="শব্দ, phonetic বা অর্থ খুঁজুন…" autocomplete="off"/>
+    </div>
+    <select class="sort-sel" id="sort">
+      <option value="">Default</option>
+      <option value="az">A → Z</option>
+      <option value="za">Z → A</option>
+      <option value="bm">⭐ Saved first</option>
+      <option value="kn">✓ Learned first</option>
+      <option value="unkn">◯ Unlearned first</option>
+    </select>
+  </div>
+  <div class="rmeta" id="rmeta"></div>
+  <div class="wgrid" id="wgrid"><div class="empty"><div class="eico">⏳</div>লোড হচ্ছে…</div></div>
+</div>
+
+<!-- QUIZ -->
+<div class="page" id="pg-quiz">
+<div class="quiz-wrap">
+  <div class="qsetup" id="qsetup">
+    <h2>Quiz করো</h2>
+    <p>শব্দ অনুশীলন করো, নিজেকে পরীক্ষা করো।</p>
+    <div class="qsetup-divider"></div>
+    <div class="frow">
+      <label class="flabel">Day বেছে নাও</label>
+      <select class="fsel" id="q-daysel"><option value="all">সব দিন</option></select>
+    </div>
+    <div class="frow">
+      <label class="flabel">Quiz ধরন</label>
+      <div class="qtype-grid">
+        <button class="qtcard on" data-qt="fc" onclick="pickQType(this)"><div class="qt-icon">🃏</div><div class="qt-name">Flashcard</div><div class="qt-desc">Flip করে অর্থ দেখো</div></button>
+        <button class="qtcard" data-qt="mcq" onclick="pickQType(this)"><div class="qt-icon">✅</div><div class="qt-name">MCQ</div><div class="qt-desc">৪ অপশন থেকে বেছে নাও</div></button>
+      </div>
+    </div>
+    <div class="frow">
+      <label class="flabel">প্রশ্নের ধরন</label>
+      <div class="diff-row">
+        <button class="diff-btn on" data-d="en" onclick="pickDiff(this)">Urdu → English</button>
+        <button class="diff-btn" data-d="bn" onclick="pickDiff(this)">English → বাংলা</button>
+        <button class="diff-btn" data-d="mix" onclick="pickDiff(this)">Mixed</button>
+      </div>
+    </div>
+    <div class="frow">
+      <label class="chk-row"><input type="checkbox" id="q-onlyunlearned"/><span>শুধু "না-শেখা" শব্দ নিয়ে quiz করো</span></label>
+    </div>
+    <button class="start-btn" id="q-start-btn" onclick="startQuiz()">শুরু করো →</button>
+  </div>
+  <div class="qarena" id="fc-arena">
+    <div class="qbar-wrap">
+      <div class="qbar-track"><div class="qbar-fill" id="fc-fill" style="width:0%"></div></div>
+      <div class="qbar-meta">
+        <span id="fc-ctr">1 / —</span>
+        <div class="qscores"><span class="qscore c">✓ <span id="fc-c">0</span></span><span class="qscore w">✗ <span id="fc-w">0</span></span></div>
+      </div>
+    </div>
+    <div class="fc-scene">
+      <div class="fc-card" id="fc-card" onclick="flipFC()">
+        <div class="fc-face fc-front">
+          <div class="fc-tag" id="fc-tag-front">উর্দু শব্দ</div>
+          <div class="fc-w" id="fc-word">—</div>
+          <div class="fc-ph" id="fc-ph">—</div>
+          <div class="fc-tap">↕ Tap to reveal meaning</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-btag" id="fc-bdtag">Day —</div>
+          <div class="fc-bw" id="fc-bword">—</div>
+          <div class="fc-ben" id="fc-ben">—</div>
+          <div class="fc-bbn" id="fc-bbn">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-btns">
+      <button class="fcbtn bad" onclick="fcVote(false)">✗ জানি না</button>
+      <button class="fcbtn skip" onclick="fcSkip()">→ Skip</button>
+      <button class="fcbtn good" onclick="fcVote(true)">✓ জানি</button>
+    </div>
+    <div class="kbd-hint"><kbd>Space</kbd> flip · <kbd>←</kbd> জানি না · <kbd>→</kbd> জানি · <kbd>S</kbd> skip</div>
+  </div>
+  <div class="qarena" id="mcq-arena">
+    <div class="qbar-wrap">
+      <div class="qbar-track"><div class="qbar-fill" id="mcq-fill" style="width:0%"></div></div>
+      <div class="qbar-meta">
+        <span id="mcq-ctr">1 / —</span>
+        <div class="qscores"><span class="qscore c">✓ <span id="mcq-c">0</span></span><span class="qscore w">✗ <span id="mcq-w">0</span></span></div>
+      </div>
+    </div>
+    <div class="mcq-qcard">
+      <div class="mcq-qlabel" id="mcq-qlbl">এই শব্দের অর্থ কী?</div>
+      <div class="mcq-qword" id="mcq-qword">—</div>
+      <div class="mcq-qph" id="mcq-qph"></div>
+    </div>
+    <div class="mcq-opts" id="mcq-opts"></div>
+    <button class="mcq-nxt" id="mcq-nxt" onclick="mcqNext()">পরবর্তী →</button>
+    <div class="kbd-hint">Press <kbd>1</kbd>–<kbd>4</kbd> to answer</div>
+  </div>
+  <div class="qresult" id="qresult">
+    <div class="res-emoji" id="res-emoji">🎉</div>
+    <div class="res-ring-wrap"><div class="res-ring" id="res-ring"><span id="res-pct">—</span></div></div>
+    <div class="res-title" id="res-title">—</div>
+    <div class="res-msg" id="res-msg">—</div>
+    <div class="res-breakdown">
+      <div class="res-stat c"><div class="rs-val" id="rs-c">0</div><div class="rs-lbl">সঠিক</div></div>
+      <div class="res-stat w"><div class="rs-val" id="rs-w">0</div><div class="rs-lbl">ভুল</div></div>
+      <div class="res-stat"><div class="rs-val" id="rs-s">0</div><div class="rs-lbl">Skip</div></div>
+    </div>
+    <div class="wrong-review" id="wr-review"></div>
+    <div class="res-btns">
+      <button class="resbtn" onclick="gotoPage('dict',document.querySelector('[data-pg=dict]'))">📖 Dictionary</button>
+      <button class="resbtn prim" onclick="restartQ()">আবার চেষ্টা →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SAVED -->
+<div class="page" id="pg-saved">
+  <div class="bm-head">
+    <div><h2>Saved শব্দ</h2><div class="bm-count" id="bm-count"></div></div>
+    <div class="bm-head-btns">
+      <button class="ghost-btn" onclick="exportSaved()">⇪ Export</button>
+      <button class="ghost-btn danger" onclick="clearAll()">সব মুছো</button>
+    </div>
+  </div>
+  <div class="wgrid" id="bm-grid"><div class="empty"><div class="eico">🔖</div>কোনো শব্দ save করা নেই।<br><small>Dictionary-তে ☆ চেপে save করো।</small></div></div>
+</div>
+
+<!-- STATS -->
+<div class="page" id="pg-stats">
+  <div class="stats-grid-top">
+    <div class="sbox"><div class="sb-ico">🔥</div><div class="sb-val" id="st-streak">0</div><div class="sb-lbl">Day streak</div></div>
+    <div class="sbox"><div class="sb-ico">✓</div><div class="sb-val" id="st-known">0</div><div class="sb-lbl">Learned</div></div>
+    <div class="sbox"><div class="sb-ico">⭐</div><div class="sb-val" id="st-bm">0</div><div class="sb-lbl">Saved</div></div>
+    <div class="sbox"><div class="sb-ico">🏆</div><div class="sb-val" id="st-best">0%</div><div class="sb-lbl">Best score</div></div>
+  </div>
+  <div class="panel">
+    <h3>সামগ্রিক অগ্রগতি (Overall progress)</h3>
+    <div class="mastery-bar-wrap">
+      <div class="mastery-bar-track"><div class="mastery-bar-fill" id="mastery-fill" style="width:0%"></div></div>
+      <div class="mastery-label"><span id="mastery-txt">0 / 0 শব্দ শেখা হয়েছে</span><span id="mastery-pct">0%</span></div>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>দিন অনুযায়ী অগ্রগতি (Progress by day)</h3>
+    <div id="day-mastery-list"></div>
+  </div>
+  <div class="panel">
+    <h3>সাম্প্রতিক Quiz ফলাফল (Recent quiz results)</h3>
+    <div class="hist-list" id="hist-list"><div class="empty-inline">এখনো কোনো quiz দাওনি।</div></div>
+  </div>
+  <button class="ghost-btn danger" onclick="resetProgress()">সব progress রিসেট করো</button>
+</div>
+
+</div>
+<script>
+/* ============ EMBEDDED WORD DATA ============ */
+var ALL_DAYS_DATA = [
+  { day: 1, words: [
+    { id:1,  word:"Musawir",       en:"Artist",                       bn:"শিল্পী" },
+    { id:2,  word:"Taabeer",       en:"Reflection / Interpretation",  bn:"প্রতিফলন / ব্যাখ্যা" },
+    { id:3,  word:"Nukht-e-Nazar", en:"Perspective",                  bn:"দৃষ্টিভঙ্গি" },
+  ]},
+  { day: 2, words: [
+    { id:4,  word:"Shiddat",  en:"Passion / Intensity", bn:"গভীর আবেগ / তীব্রতা" },
+    { id:5,  word:"Nigaahon", en:"Eyes / Gaze",         bn:"চোখ / দৃষ্টি" },
+    { id:6,  word:"Karam",    en:"Kindness / Grace",    bn:"দয়া / অনুগ্রহ" },
+  ]},
+  { day: 3, words: [
+    { id:7,  word:"Ahista",  en:"Slowly",     bn:"ধীরে ধীরে" },
+    { id:8,  word:"Ghurbat", en:"Exile",      bn:"নির্বাসন" },
+    { id:9,  word:"Filhaal", en:"At Present", bn:"আপাতত / বর্তমানে" },
+  ]},
+  { day: 4, words: [
+    { id:10, word:"Zehnaseeb", en:"Fortunate / Blessed",  bn:"সৌভাগ্যবান" },
+    { id:11, word:"Betahasha", en:"Wildly / Excessively", bn:"অত্যধিকভাবে" },
+    { id:12, word:"Khairiyat", en:"Well-being",           bn:"কুশলতা" },
+  ]},
+  { day: 5, words: [
+    { id:13, word:"Dilkashi", en:"Charm / Attraction", bn:"আকর্ষণ" },
+    { id:14, word:"Justajoo", en:"Quest / Pursuit",    bn:"অনুসন্ধান" },
+    { id:15, word:"Fitoor",   en:"Obsession",          bn:"মোহ / আসক্তি" },
+  ]},
+  { day: 6, words: [
+    { id:16, word:"Darasal", en:"In Fact / Actually", bn:"আসলে / প্রকৃতপক্ষে" },
+    { id:17, word:"Khubiya", en:"Qualities",          bn:"গুণাবলি" },
+    { id:18, word:"Khamiya", en:"Shortcomings",       bn:"ত্রুটি / দুর্বলতা" },
+  ]},
+  { day: 7, words: [
+    { id:19, word:"Khauf",  en:"Terror / Fear",        bn:"আতঙ্ক / ভয়" },
+    { id:20, word:"Fizaa",  en:"Breeze / Atmosphere",  bn:"হালকা বাতাস / পরিবেশ" },
+    { id:21, word:"Karaar", en:"Stability / Calmness", bn:"স্থিরতা / শান্তি" },
+  ]},
+  { day: 8, words: [
+    { id:22, word:"Hasrat",  en:"Bittersweet longing / Yearning", bn:"আকুল আকাঙ্ক্ষা / অপূর্ণ বাসনার বেদনা" },
+    { id:23, word:"Rehbara", en:"Guide / Wayfinder",              bn:"পথপ্রদর্শক / দিশারী" },
+    { id:24, word:"Suroor",  en:"Intoxicating joy / Ecstasy",     bn:"উচ্ছ্বাসময় আনন্দ / মুগ্ধতাময় সুখ" },
+  ]},
+  { day: 9, words: [
+    { id:25, word:"Raabta", en:"A connection between two people / Bond / Relationship", bn:"দুই মানুষের মধ্যে সংযোগ / বন্ধন / সম্পর্ক" },
+    { id:26, word:"Umeed",  en:"Hope / Expectation / Optimism",                          bn:"আশা / প্রত্যাশা / আশাবাদ" },
+    { id:27, word:"Aarzu",  en:"Yearning / Deep desire / Longing",                        bn:"আকুল আকাঙ্ক্ষা / গভীর ইচ্ছা / প্রবল বাসনা" },
+  ]},
+  { day: 10, words: [
+    { id:28, word:"Mausam",  en:"Season / Weather",                      bn:"ঋতু / আবহাওয়া" },
+    { id:29, word:"Falsafa", en:"Philosophy / Wisdom",                   bn:"দর্শন / প্রজ্ঞা" },
+    { id:30, word:"Hamdard", en:"Compassionate companion / Sympathizer", bn:"সহানুভূতিশীল সঙ্গী / সমব্যথী" },
+  ]},
+  { day: 11, words: [
+    { id:31, word:"Fitrat",   en:"Nature / Character / Disposition", bn:"প্রকৃতি / স্বভাব / চরিত্র" },
+    { id:32, word:"Darmiyan", en:"In between / Amid / Among",        bn:"মাঝখানে / মধ্যবর্তী / মধ্যে" },
+    { id:33, word:"Barbaadi", en:"Destruction / Ruin / Devastation", bn:"ধ্বংস / সর্বনাশ / বিপর্যয়" },
+  ]},
+  { day: 12, words: [
+    { id:34, word:"Talab",    en:"Need / Desire / Demand",       bn:"প্রয়োজন / আকাঙ্ক্ষা / চাহিদা" },
+    { id:35, word:"Shaamil",  en:"Present / Included / Involved", bn:"উপস্থিত / অন্তর্ভুক্ত / জড়িত" },
+    { id:36, word:"Mohabbat", en:"Love / Affection / Deep love",  bn:"ভালোবাসা / স্নেহ / গভীর প্রেম" },
+  ]},
+];
+
+/* ============ STORAGE HELPERS (persistent, replaces localStorage) ============ */
+async function storageGet(key, fallback){
+  try{
+    const r = await window.storage.get(key, false);
+    return r && r.value ? JSON.parse(r.value) : fallback;
+  }catch(e){ return fallback; }
+}
+async function storageSet(key, value){
+  try{ await window.storage.set(key, JSON.stringify(value), false); }
+  catch(e){ console.error('storage set failed:', key, e); }
+}
+
+/* ============ STATE ============ */
+const ROOT = document.documentElement;
+let WORDS = [];
+let BOOKMARKS = new Set();
+let KNOWN = new Set();
+let STATS = { streak:0, lastVisit:null, totalQuizzes:0, bestPct:0, history:[] };
+let activeDay = null;
+let qType='fc', qDiff='en', qWords=[], qIdx=0, qC=0, qW=0, qSkip=0, qWrong=[], fcFlipped=false, mcqAnswered=false;
+
+/* ============ NAV ============ */
+function gotoPage(name, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+name).classList.add('on');
+  if(btn) btn.classList.add('on');
+  else { const t=document.querySelector(`[data-pg="${name}"]`); if(t) t.classList.add('on'); }
+  if(name==='saved') renderSaved();
+  if(name==='quiz') resetQUI();
+  if(name==='stats') renderStats();
+}
+
+/* ============ THEME ============ */
+function setTheme(t, persist){
+  ROOT.setAttribute('data-theme', t);
+  document.getElementById('thbtn').textContent = t==='dark' ? '☀️' : '🌙';
+  if(persist) storageSet('prefs', {theme:t});
+}
+function toggleTheme(){ setTheme(ROOT.getAttribute('data-theme')==='dark' ? 'light' : 'dark', true); }
+
+/* ============ BOOT ============ */
+async function boot(){
+  ALL_DAYS_DATA.forEach(d => d.words.forEach(w => WORDS.push({...w, day:d.day})));
+
+  const [prefs, bm, kn, wotd, stats] = await Promise.all([
+    storageGet('prefs', null),
+    storageGet('bookmarks', []),
+    storageGet('known', []),
+    storageGet('wotd', null),
+    storageGet('stats', { streak:0, lastVisit:null, totalQuizzes:0, bestPct:0, history:[] })
+  ]);
+
+  const theme = (prefs && prefs.theme) || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  setTheme(theme, false);
+
+  BOOKMARKS = new Set(bm);
+  KNOWN = new Set(kn);
+  STATS = stats;
+
+  updateStreak();
+  setupWOTD(wotd);
+
+  const days = [...new Set(WORDS.map(w=>w.day))].sort((a,b)=>a-b);
+  document.getElementById('s-days').textContent = days.length;
+  document.getElementById('s-total').textContent = WORDS.length;
+  buildPills(days);
+  buildQDS(days);
+  render();
+  renderStreakPill();
+}
+
+function updateStreak(){
+  const today = new Date().toDateString();
+  if(STATS.lastVisit === today) return;
+  const y = new Date(); y.setDate(y.getDate()-1);
+  STATS.streak = (STATS.lastVisit === y.toDateString()) ? (STATS.streak||0)+1 : 1;
+  STATS.lastVisit = today;
+  storageSet('stats', STATS);
+}
+function renderStreakPill(){ document.getElementById('streak-val').textContent = STATS.streak || 0; }
+
+function setupWOTD(saved){
+  const today = new Date().toDateString();
+  let idx;
+  if(saved && saved.date===today && typeof saved.idx==='number' && saved.idx < WORDS.length){
+    idx = saved.idx;
+  } else {
+    idx = Math.floor(Math.random()*WORDS.length);
+    storageSet('wotd', {date:today, idx});
+  }
+  const w = WORDS[idx];
+  document.getElementById('wotd-word').textContent = w.word;
+  document.getElementById('wotd-day').textContent = 'Day '+w.day+' এর শব্দ';
+  document.getElementById('wotd-badge').textContent = 'Day '+w.day;
+  document.getElementById('wotd-en').textContent = w.en;
+  document.getElementById('wotd-bn').textContent = w.bn;
+}
+
+/* ============ DAY PILLS / QUIZ DAY SELECT ============ */
+function buildPills(days){
+  const bar = document.getElementById('day-pills'); bar.innerHTML='';
+  const all = mkP('সব', WORDS.length, true, ()=>{ activeDay=null; bar.querySelectorAll('.dpill').forEach(b=>b.classList.remove('on')); all.classList.add('on'); render(); });
+  bar.appendChild(all);
+  days.forEach(d=>{
+    const cnt = WORDS.filter(w=>w.day===d).length;
+    const btn = mkP('Day '+d, cnt, false, ()=>{ activeDay=d; bar.querySelectorAll('.dpill').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); render(); });
+    bar.appendChild(btn);
+  });
+}
+function mkP(label,count,active,onclick){ const b=document.createElement('button'); b.className='dpill'+(active?' on':''); b.innerHTML=`${label}<span class="dc">${count}</span>`; b.onclick=onclick; return b; }
+function buildQDS(days){ const sel=document.getElementById('q-daysel'); days.forEach(d=>{ const o=document.createElement('option'); o.value=d; o.textContent=`Day ${d}`; sel.appendChild(o); }); }
+
+/* ============ DICTIONARY RENDER ============ */
+function hl(s,q){ if(!q||!s) return s||''; return s.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'), '<mark>$1</mark>'); }
+function render(){
+  const q = document.getElementById('srch').value.trim().toLowerCase();
+  const s = document.getElementById('sort').value;
+  let pool = activeDay ? WORDS.filter(w=>w.day===activeDay) : WORDS;
+  let list = pool.filter(w => !q || w.word.toLowerCase().includes(q) || w.en.toLowerCase().includes(q) || w.bn.includes(q));
+  if(s==='az') list.sort((a,b)=>a.word.localeCompare(b.word));
+  else if(s==='za') list.sort((a,b)=>b.word.localeCompare(a.word));
+  else if(s==='bm') list.sort((a,b)=>(BOOKMARKS.has(b.id)?1:0)-(BOOKMARKS.has(a.id)?1:0));
+  else if(s==='kn') list.sort((a,b)=>(KNOWN.has(b.id)?1:0)-(KNOWN.has(a.id)?1:0));
+  else if(s==='unkn') list.sort((a,b)=>(KNOWN.has(a.id)?1:0)-(KNOWN.has(b.id)?1:0));
+  document.getElementById('s-show').textContent = list.length;
+  document.getElementById('s-desc').textContent = activeDay ? `Day ${activeDay}${q?' · খুঁজছো':''}` : `সব দিন${q?' · খুঁজছো':''}`;
+  document.getElementById('rmeta').textContent = list.length===pool.length ? `${list.length} টি শব্দ` : `${list.length} / ${pool.length} টি শব্দ`;
+  if(!list.length){ document.getElementById('wgrid').innerHTML='<div class="empty"><div class="eico">🔍</div>কোনো শব্দ পাওয়া যায়নি।</div>'; return; }
+  document.getElementById('wgrid').innerHTML = list.map(w=>card(w,q)).join('');
+}
+function card(w,q=''){
+  const bm = BOOKMARKS.has(w.id), kn = KNOWN.has(w.id);
+  return `<div class="wcard${bm?' bm':''}${kn?' known':''}" id="wc-${w.id}">
+  <div class="wcard-top">
+    <span class="wcard-num">#${String(w.id).padStart(2,'0')}</span>
+    <div class="wcard-actions">
+      <button class="icon-btn${kn?' kn-on':''}" onclick="toggleKnown(${w.id})" aria-label="Mark learned" title="শেখা হয়েছে">${kn?'✓':'◯'}</button>
+      <button class="icon-btn${bm?' bm-on':''}" onclick="toggleBM(${w.id})" aria-label="Save word" title="Save">${bm?'⭐':'☆'}</button>
+    </div>
+  </div>
+  <div class="wcard-word">${hl(w.word,q)}</div>
+  <div class="wcard-ph"><span class="ph-icon" onclick="speak('${w.word.replace(/'/g,"\\'")}')" role="button" aria-label="Listen">🔊</span></div>
+  <span class="wcard-dtag">Day ${w.day}</span>
+  <div class="wcard-sep"></div>
+  <div class="wcard-en">${hl(w.en,q)}</div>
+  <div class="wcard-bn"><span class="wcard-bn-label">বাং</span>${hl(w.bn,q)}</div>
+</div>`;
+}
+
+/* ============ SPEECH ============ */
+let voicesReady = false, cachedVoice = null;
+function pickVoice(){
+  const voices = speechSynthesis.getVoices ? speechSynthesis.getVoices() : [];
+  if(!voices.length) return null;
+  return voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('ur'))
+      || voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('hi'))
+      || null;
+}
+if('speechSynthesis' in window){
+  speechSynthesis.onvoiceschanged = ()=>{ cachedVoice = pickVoice(); voicesReady = true; };
+}
+function speak(word){
+  if(!('speechSynthesis' in window)){ showToast('এই ব্রাউজারে audio সাপোর্ট নেই'); return; }
+  if(!voicesReady) cachedVoice = pickVoice();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = cachedVoice ? cachedVoice.lang : 'ur-PK';
+  u.rate = 0.82;
+  if(cachedVoice) u.voice = cachedVoice;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+/* ============ BOOKMARK / KNOWN TOGGLES ============ */
+function toggleBM(id){
+  if(BOOKMARKS.has(id)) BOOKMARKS.delete(id); else BOOKMARKS.add(id);
+  storageSet('bookmarks',[...BOOKMARKS]);
+  showToast(BOOKMARKS.has(id) ? '⭐ Saved!' : 'Removed');
+  render();
+  if(document.getElementById('pg-saved').classList.contains('on')) renderSaved();
+}
+function toggleKnown(id){
+  if(KNOWN.has(id)) KNOWN.delete(id); else KNOWN.add(id);
+  storageSet('known',[...KNOWN]);
+  showToast(KNOWN.has(id) ? '✓ শেখা হয়েছে!' : 'শেখার তালিকা থেকে সরানো হলো');
+  render();
+  if(document.getElementById('pg-saved').classList.contains('on')) renderSaved();
+}
+
+/* ============ SAVED PAGE ============ */
+function renderSaved(){
+  const list = WORDS.filter(w=>BOOKMARKS.has(w.id));
+  document.getElementById('bm-count').textContent = list.length ? `${list.length} টি শব্দ saved` : '';
+  document.getElementById('bm-grid').innerHTML = list.length
+    ? list.map(w=>card(w)).join('')
+    : '<div class="empty"><div class="eico">🔖</div>কোনো শব্দ save করা নেই।<br><small>Dictionary-তে ☆ চেপে save করো।</small></div>';
+}
+function clearAll(){
+  if(!confirm('সব saved শব্দ মুছে দেবে?')) return;
+  BOOKMARKS.clear(); storageSet('bookmarks',[]);
+  render(); renderSaved();
+}
+async function exportSaved(){
+  const list = WORDS.filter(w=>BOOKMARKS.has(w.id));
+  if(!list.length){ showToast('কোনো saved শব্দ নেই'); return; }
+  const text = list.map(w=>`${w.word} — ${w.en} — ${w.bn}`).join('\n');
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast('📋 Clipboard-এ কপি হয়েছে!');
+  }catch(e){
+    try{
+      const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      showToast('📋 Clipboard-এ কপি হয়েছে!');
+    }catch(e2){ showToast('কপি করা যায়নি'); }
+  }
+}
+
+/* ============ TOAST ============ */
+let toastT;
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200); }
+
+/* ============ SEARCH/SORT LISTENERS ============ */
+document.getElementById('srch').addEventListener('input', render);
+document.getElementById('sort').addEventListener('change', render);
+
+/* ============ QUIZ SETUP ============ */
+function pickQType(btn){ document.querySelectorAll('.qtcard').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); qType=btn.dataset.qt; }
+function pickDiff(btn){ document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); qDiff=btn.dataset.d; }
+function resetQUI(){
+  document.getElementById('qsetup').style.display='';
+  document.getElementById('fc-arena').classList.remove('on');
+  document.getElementById('mcq-arena').classList.remove('on');
+  document.getElementById('qresult').classList.remove('on');
+}
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } }
+
+function startQuiz(){
+  const dv = document.getElementById('q-daysel').value;
+  let pool = dv==='all' ? [...WORDS] : WORDS.filter(w=>w.day===Number(dv));
+  if(document.getElementById('q-onlyunlearned').checked){
+    const filtered = pool.filter(w=>!KNOWN.has(w.id));
+    if(filtered.length >= 2) pool = filtered;
+    else showToast('না-শেখা শব্দ যথেষ্ট নেই, সব শব্দ দিয়ে শুরু হচ্ছে');
+  }
+  if(pool.length < 2){ showToast('কমপক্ষে ২টি শব্দ দরকার।'); return; }
+  qWords = pool; shuffle(qWords);
+  qIdx=0; qC=0; qW=0; qSkip=0; qWrong=[];
+  document.getElementById('qsetup').style.display='none';
+  document.getElementById('qresult').classList.remove('on');
+  if(qType==='fc') startFC(); else startMCQ();
+}
+
+/* ============ FLASHCARDS ============ */
+function startFC(){ document.getElementById('fc-arena').classList.add('on'); loadFC(); }
+function loadFC(){
+  if(qIdx>=qWords.length){ showResult(); return; }
+  const w = qWords[qIdx];
+  fcFlipped=false;
+  document.getElementById('fc-card').classList.remove('flip');
+  const showEnglishFront = qDiff==='bn' || (qDiff==='mix' && Math.random()<0.5);
+  if(showEnglishFront){
+    document.getElementById('fc-tag-front').textContent='English অর্থ';
+    document.getElementById('fc-word').textContent=w.en;
+    document.getElementById('fc-ph').textContent='';
+  } else {
+    document.getElementById('fc-tag-front').textContent='উর্দু শব্দ';
+    document.getElementById('fc-word').textContent=w.word;
+    document.getElementById('fc-ph').textContent='';
+  }
+  document.getElementById('fc-bdtag').textContent='Day '+w.day;
+  document.getElementById('fc-bword').textContent=w.word;
+  document.getElementById('fc-ben').textContent=w.en;
+  document.getElementById('fc-bbn').textContent=w.bn;
+  updFC();
+}
+function flipFC(){ fcFlipped=!fcFlipped; document.getElementById('fc-card').classList.toggle('flip',fcFlipped); }
+function fcVote(ok){
+  const w = qWords[qIdx];
+  if(ok){ qC++; KNOWN.add(w.id); } else { qW++; KNOWN.delete(w.id); qWrong.push(w); }
+  storageSet('known',[...KNOWN]);
+  qIdx++; loadFC();
+}
+function fcSkip(){ qSkip++; qIdx++; loadFC(); }
+function updFC(){
+  const tot=qWords.length;
+  document.getElementById('fc-fill').style.width=`${(qIdx/tot)*100}%`;
+  document.getElementById('fc-ctr').textContent=`${qIdx+1} / ${tot}`;
+  document.getElementById('fc-c').textContent=qC;
+  document.getElementById('fc-w').textContent=qW;
+}
+
+/* ============ MCQ ============ */
+function startMCQ(){ document.getElementById('mcq-arena').classList.add('on'); loadMCQ(); }
+function loadMCQ(){
+  if(qIdx>=qWords.length){ showResult(); return; }
+  mcqAnswered = false;
+  const w = qWords[qIdx], tot = qWords.length;
+  document.getElementById('mcq-fill').style.width=`${(qIdx/tot)*100}%`;
+  document.getElementById('mcq-ctr').textContent=`${qIdx+1} / ${tot}`;
+  document.getElementById('mcq-c').textContent=qC;
+  document.getElementById('mcq-w').textContent=qW;
+  document.getElementById('mcq-nxt').classList.remove('vis');
+
+  const isBn = qDiff==='bn' || (qDiff==='mix' && Math.random()<0.5);
+  let qText, correctAns, getAns;
+  if(isBn){
+    qText=w.en; correctAns=w.bn; getAns=x=>x.bn;
+    document.getElementById('mcq-qlbl').textContent='এই English অর্থের বাংলা কী?';
+    document.getElementById('mcq-qph').textContent='';
+  } else {
+    qText=w.word; correctAns=w.en; getAns=x=>x.en;
+    document.getElementById('mcq-qlbl').textContent='এই শব্দের অর্থ কী?';
+    document.getElementById('mcq-qph').textContent='';
+  }
+  document.getElementById('mcq-qword').textContent = qText;
+
+  const candidates = WORDS.filter(x=>x.id!==w.id);
+  shuffle(candidates);
+  const seen = new Set([correctAns]);
+  const wrongTexts = [];
+  for(const x of candidates){
+    const t = getAns(x);
+    if(!seen.has(t)){ seen.add(t); wrongTexts.push(t); if(wrongTexts.length===3) break; }
+  }
+  const opts = [{t:correctAns,ok:true}, ...wrongTexts.map(t=>({t,ok:false}))];
+  shuffle(opts);
+  document.getElementById('mcq-opts').innerHTML = opts.map((o,i)=>
+    `<button class="mcqopt" data-ok="${o.ok}" onclick="mcqPick(this,${o.ok},'${w.id}')"><span class="okey">${i+1}</span>${o.t}</button>`
+  ).join('');
+}
+function mcqPick(btn, ok, wordId){
+  if(mcqAnswered) return;
+  mcqAnswered = true;
+  const w = qWords[qIdx];
+  document.querySelectorAll('.mcqopt').forEach(b=>{ b.classList.add('dis'); if(b.dataset.ok==='true') b.classList.add('ok'); });
+  if(!ok){ btn.classList.add('ng'); qW++; KNOWN.delete(w.id); qWrong.push(w); }
+  else { qC++; KNOWN.add(w.id); }
+  storageSet('known',[...KNOWN]);
+  document.getElementById('mcq-c').textContent=qC;
+  document.getElementById('mcq-w').textContent=qW;
+  document.getElementById('mcq-nxt').classList.add('vis');
+}
+function mcqNext(){ qIdx++; loadMCQ(); }
+
+/* ============ KEYBOARD SHORTCUTS ============ */
+document.addEventListener('keydown', (e)=>{
+  if(!document.getElementById('pg-quiz').classList.contains('on')) return;
+  if(document.getElementById('fc-arena').classList.contains('on')){
+    if(e.code==='Space'){ e.preventDefault(); flipFC(); }
+    else if(e.key==='ArrowLeft'){ fcVote(false); }
+    else if(e.key==='ArrowRight'){ fcVote(true); }
+    else if(e.key.toLowerCase()==='s'){ fcSkip(); }
+  } else if(document.getElementById('mcq-arena').classList.contains('on')){
+    const n = parseInt(e.key,10);
+    if(n>=1 && n<=4 && !mcqAnswered){
+      const opts = document.querySelectorAll('.mcqopt');
+      if(opts[n-1]) opts[n-1].click();
+    } else if(e.code==='Space' && mcqAnswered){ e.preventDefault(); mcqNext(); }
+  }
+});
+
+/* ============ RESULTS ============ */
+function showResult(){
+  document.getElementById('fc-arena').classList.remove('on');
+  document.getElementById('mcq-arena').classList.remove('on');
+  const rs = document.getElementById('qresult'); rs.classList.add('on');
+  const answered = qC+qW, tot = qWords.length;
+  const pct = answered>0 ? Math.round((qC/answered)*100) : 0;
+  document.getElementById('res-pct').textContent = pct+'%';
+  const ring = document.getElementById('res-ring');
+  setTimeout(()=>{ ring.style.background = `conic-gradient(var(--violet) ${pct}%, var(--line) 0%)`; },50);
+  let em,ti,msg;
+  if(pct>=90){ em='🏆'; ti='অসাধারণ!'; msg=`${tot} টির মধ্যে ${qC} টি সঠিক। তুমি দারুণ করেছো!`; }
+  else if(pct>=60){ em='👍'; ti='ভালো চেষ্টা!'; msg=`${tot} টির মধ্যে ${qC} টি সঠিক। আরো অনুশীলন করো।`; }
+  else{ em='📚'; ti='আরো পড়ো!'; msg=`${tot} টির মধ্যে ${qC} টি সঠিক। Dictionary থেকে শব্দগুলো দেখো।`; }
+  document.getElementById('res-emoji').textContent = em;
+  document.getElementById('res-title').textContent = ti;
+  document.getElementById('res-msg').textContent = msg;
+  document.getElementById('rs-c').textContent = qC;
+  document.getElementById('rs-w').textContent = qW;
+  document.getElementById('rs-s').textContent = qSkip;
+  const wr = document.getElementById('wr-review');
+  if(qWrong.length){
+    wr.innerHTML = `<div class="wr-head">ভুল হয়েছে (${qWrong.length})</div><div class="wr-list">${qWrong.map(w=>`<div class="wr-item"><div><div class="wi-word">${w.word}</div></div><div class="wi-en">${w.en}</div></div>`).join('')}</div>`;
+  } else wr.innerHTML='';
+
+  STATS.totalQuizzes = (STATS.totalQuizzes||0)+1;
+  if(pct > (STATS.bestPct||0)) STATS.bestPct = pct;
+  STATS.history = STATS.history || [];
+  STATS.history.unshift({ date:new Date().toISOString(), type:qType==='fc'?'Flashcard':'MCQ', direction:qDiff, pct, correct:qC, total:tot, skipped:qSkip });
+  STATS.history = STATS.history.slice(0,15);
+  storageSet('stats', STATS);
+}
+function restartQ(){ document.getElementById('qresult').classList.remove('on'); startQuiz(); }
+
+/* ============ STATS PAGE ============ */
+function renderStats(){
+  document.getElementById('st-streak').textContent = STATS.streak||0;
+  document.getElementById('st-known').textContent = KNOWN.size;
+  document.getElementById('st-bm').textContent = BOOKMARKS.size;
+  document.getElementById('st-best').textContent = (STATS.bestPct||0)+'%';
+
+  const pct = WORDS.length ? Math.round((KNOWN.size/WORDS.length)*100) : 0;
+  document.getElementById('mastery-fill').style.width = pct+'%';
+  document.getElementById('mastery-txt').textContent = `${KNOWN.size} / ${WORDS.length} শব্দ শেখা হয়েছে`;
+  document.getElementById('mastery-pct').textContent = pct+'%';
+
+  const days = [...new Set(WORDS.map(w=>w.day))].sort((a,b)=>a-b);
+  document.getElementById('day-mastery-list').innerHTML = days.map(d=>{
+    const dw = WORDS.filter(w=>w.day===d);
+    const kc = dw.filter(w=>KNOWN.has(w.id)).length;
+    const dpct = Math.round((kc/dw.length)*100);
+    return `<div class="day-row"><span class="dr-lbl">Day ${d}</span><div class="dr-track"><div class="dr-fill" style="width:${dpct}%"></div></div><span class="dr-ct">${kc}/${dw.length}</span></div>`;
+  }).join('');
+
+  const hist = STATS.history||[];
+  document.getElementById('hist-list').innerHTML = hist.length ? hist.map(h=>{
+    const cls = h.pct>=80?'hi':(h.pct>=50?'mid':'lo');
+    const d = new Date(h.date);
+    const dstr = isNaN(d) ? '' : d.toLocaleDateString('bn-BD',{day:'numeric',month:'short'});
+    const dirLabel = h.direction==='bn' ? 'EN→BN' : (h.direction==='mix' ? 'Mixed' : 'UR→EN');
+    return `<div class="hist-item"><div class="hist-badge ${cls}">${h.pct}%</div><div class="hist-info"><div class="hist-type">${h.type} · ${dirLabel}</div><div class="hist-date">${dstr}</div></div><div class="hist-score">${h.correct}/${h.total}</div></div>`;
+  }).join('') : '<div class="empty-inline">এখনো কোনো quiz দাওনি।</div>';
+}
+async function resetProgress(){
+  if(!confirm('সব saved শব্দ, learned progress এবং quiz history মুছে দেবে। নিশ্চিত?')) return;
+  BOOKMARKS.clear(); KNOWN.clear();
+  STATS = { streak:STATS.streak, lastVisit:STATS.lastVisit, totalQuizzes:0, bestPct:0, history:[] };
+  await Promise.all([ storageSet('bookmarks',[]), storageSet('known',[]), storageSet('stats',STATS) ]);
+  render(); renderStats();
+  showToast('Progress রিসেট হয়েছে');
+}
+
+boot();
+</script>
+</body>
+</html>
