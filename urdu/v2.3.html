@@ -379,12 +379,34 @@ mark{background:var(--violet-soft);color:var(--violet);border-radius:2px;padding
 
 </div>
 <script>
+const FALLBACK_DAYS_DATA = [
+  { day: 1, words: [ { id:1, word:"Musawir", en:"Artist", bn:"শিল্পী" }, { id:2, word:"Taabeer", en:"Reflection / Interpretation", bn:"প্রতিফলন / ব্যাখ্যা" }, { id:3, word:"Nukht-e-Nazar", en:"Perspective", bn:"দৃষ্টিভঙ্গি" } ] },
+  { day: 2, words: [ { id:4, word:"Shiddat", en:"Passion / Intensity", bn:"গভীর আবেগ / তীব্রতা" }, { id:5, word:"Nigaahon", en:"Eyes / Gaze", bn:"চোখ / দৃষ্টি" }, { id:6, word:"Karam", en:"Kindness / Grace", bn:"দয়া / অনুগ্রহ" } ] },
+  { day: 3, words: [ { id:7, word:"Ahista", en:"Slowly", bn:"ধীরে ধীরে" }, { id:8, word:"Ghurbat", en:"Exile", bn:"নির্বাসন" }, { id:9, word:"Filhaal", en:"At Present", bn:"আপাতত / বর্তমানে" } ] },
+  { day: 4, words: [ { id:10, word:"Zehnaseeb", en:"Fortunate / Blessed", bn:"সৌভাগ্যবান" }, { id:11, word:"Betahasha", en:"Wildly / Excessively", bn:"অত্যধিকভাবে" }, { id:12, word:"Khairiyat", en:"Well-being", bn:"কুশলতা" } ] },
+  { day: 5, words: [ { id:13, word:"Dilkashi", en:"Charm / Attraction", bn:"আকর্ষণ" }, { id:14, word:"Justajoo", en:"Quest / Pursuit", bn:"অনুসন্ধান" }, { id:15, word:"Fitoor", en:"Obsession", bn:"মোহ / আসক্তি" } ] },
+  { day: 6, words: [ { id:16, word:"Darasal", en:"In Fact / Actually", bn:"আসলে / প্রকৃতপক্ষে" }, { id:17, word:"Khubiya", en:"Qualities", bn:"গুণাবলি" }, { id:18, word:"Khamiya", en:"Shortcomings", bn:"ত্রুটি / দুর্বলতা" } ] },
+  { day: 7, words: [ { id:19, word:"Khauf", en:"Terror / Fear", bn:"আতঙ্ক / ভয়" }, { id:20, word:"Fizaa", en:"Breeze / Atmosphere", bn:"হালকা বাতাস / পরিবেশ" }, { id:21, word:"Karaar", en:"Stability / Calmness", bn:"স্থিরতা / শান্তি" } ] },
+  { day: 8, words: [ { id:22, word:"Hasrat", en:"Bittersweet longing / Yearning", bn:"আকুল আকাঙ্ক্ষা / অপূর্ণ বাসনার বেদনা" }, { id:23, word:"Rehbara", en:"Guide / Wayfinder", bn:"পথপ্রদর্শক / দিশারী" }, { id:24, word:"Suroor", en:"Intoxicating joy / Ecstasy", bn:"উচ্ছ্বাসময় আনন্দ / মুগ্ধতাময় সুখ" } ] },
+  { day: 9, words: [ { id:25, word:"Raabta", en:"A connection between two people / Bond / Relationship", bn:"দুই মানুষের মধ্যে সংযোগ / বন্ধন / সম্পর্ক" }, { id:26, word:"Umeed", en:"Hope / Expectation / Optimism", bn:"আশা / প্রত্যাশা / আশাবাদ" }, { id:27, word:"Aarzu", en:"Yearning / Deep desire / Longing", bn:"আকুল আকাঙ্ক্ষা / গভীর ইচ্ছা / প্রবল বাসনা" } ] },
+  { day: 10, words: [ { id:28, word:"Mausam", en:"Season / Weather", bn:"ঋতু / আবহাওয়া" }, { id:29, word:"Falsafa", en:"Philosophy / Wisdom", bn:"দর্শন / প্রজ্ঞা" }, { id:30, word:"Hamdard", en:"Compassionate companion / Sympathizer", bn:"সহানুভূতিশীল সঙ্গী / সমব্যথী" } ] },
+  { day: 11, words: [ { id:31, word:"Fitrat", en:"Nature / Character / Disposition", bn:"প্রকৃতি / স্বভাব / চরিত্র" }, { id:32, word:"Darmiyan", en:"In between / Amid / Among", bn:"মাঝখানে / মধ্যবর্তী / মধ্যে" }, { id:33, word:"Barbaadi", en:"Destruction / Ruin / Devastation", bn:"ধ্বংস / সর্বনাশ / বিপর্যয়" } ] },
+  { day: 12, words: [ { id:34, word:"Talab", en:"Need / Desire / Demand", bn:"প্রয়োজন / আকাঙ্ক্ষা / চাহিদা" }, { id:35, word:"Shaamil", en:"Present / Included / Involved", bn:"উপস্থিত / অন্তর্ভুক্ত / জড়িত" }, { id:36, word:"Mohabbat", en:"Love / Affection / Deep love", bn:"ভালোবাসা / স্নেহ / গভীর প্রেম" } ] },
+  { day: 13, words: [ { id:37, word:"Shabnam", en:"Morning dew / Dew", bn:"সকালের শিশির / শিশির" }, { id:38, word:"Munasib", en:"Appropriate / Suitable / Proper", bn:"উপযুক্ত / মানানসই / যথাযথ" }, { id:39, word:"Bagair", en:"Without / Except", bn:"ছাড়া / ব্যতীত" } ] },
+  { day: 14, words: [ { id:40, word:"Sehar", en:"Early morning dawn / Dawn / Daybreak", bn:"ভোর / ঊষালগ্ন / প্রভাত" }, { id:41, word:"Abad", en:"Eternity / Everlasting / Prosperous", bn:"চিরকাল / অনন্তকাল / সমৃদ্ধ" }, { id:42, word:"Nishaat", en:"Happiness / Joy / Delight", bn:"সুখ / আনন্দ / উল্লাস" } ] },
+  { day: 15, words: [ { id:43, word:"Meelon", en:"Miles / Long distances", bn:"মাইল / দীর্ঘ দূরত্ব" }, { id:44, word:"Faasle", en:"Distance / Separation / Gap", bn:"দূরত্ব / বিচ্ছেদ / ব্যবধান" }, { id:45, word:"Judayi", en:"Separation / Parting / Distance", bn:"বিচ্ছেদ / আলাদা হওয়া / দূরত্ব" } ] },
+  { day: 16, words: [ { id:46, word:"Gumnaam", en:"Nameless / Anonymous / Unknown", bn:"নামহীন / অজ্ঞাত / অপরিচিত" }, { id:47, word:"Sargoshi", en:"Intimate whisper / Whisper / Murmur", bn:"ফিসফিস করে কথা বলা / কানে কানে বলা / মৃদুস্বরে বলা" }, { id:48, word:"Bayaan", en:"Narration / Expression / Thoughts", bn:"বর্ণনা / প্রকাশ / ভাবনা" } ] },
+  { day: 17, words: [ { id:49, word:"Koshish", en:"Effort / Attempt / Endeavor", bn:"প্রচেষ্টা / চেষ্টা / প্রয়াস" }, { id:50, word:"Dildaar", en:"Beloved / Loving / Kind-hearted", bn:"প্রিয়জন / স্নেহশীল / উদার হৃদয়ের" }, { id:51, word:"Mukammal", en:"Flawless / Complete / Perfect", bn:"নিখুঁত / সম্পূর্ণ / পরিপূর্ণ" } ] },
+  { day: 18, words: [ { id:52, word:"Nazaara", en:"Sight / View / Scenery", bn:"দৃশ্য / দৃশ্যপট / মনোরম দৃশ্য" }, { id:53, word:"Dard", en:"Physical or emotional pain / Sorrow", bn:"শারীরিক বা মানসিক ব্যথা / বেদনা" }, { id:54, word:"Tehzeeb", en:"Sophisticated manners / Culture / Etiquette", bn:"ভদ্রতা / শিষ্টাচার / সংস্কৃতি" } ] },
+  { day: 19, words: [ { id:55, word:"Kaynaat", en:"Universe / Creation / Existence", bn:"মহাবিশ্ব / সৃষ্টিজগৎ / অস্তিত্ব" }, { id:56, word:"Mulaqaat", en:"Meeting / Encounter / Reunion", bn:"সাক্ষাৎ / দেখা / পুনর্মিলন" }, { id:57, word:"Jazba", en:"Passion / Zeal / Strong feeling", bn:"আবেগ / উদ্দীপনা / প্রবল অনুভূতি" } ] }
+];
+
 const ROOT=document.documentElement;
 (()=>{const t=localStorage.getItem('u-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');setTheme(t);})();
 function setTheme(t){ROOT.setAttribute('data-theme',t);localStorage.setItem('u-theme',t);document.getElementById('thbtn').textContent=t==='dark'?'☀️':'🌙';}
 function toggleTheme(){setTheme(ROOT.getAttribute('data-theme')==='dark'?'light':'dark');}
 let WORDS=[],BOOKMARKS=new Set(JSON.parse(localStorage.getItem('u-bm')||'[]'));
-let activeDay=null,qType='fc',qDiff='en',qWords=[],qIdx=0,qC=0,qW=0,qSkip=0,qWrong=[],fcFlipped=false;
+let activeDay=null,qType='fc',qDiff='en',qWords=[],qIdx=0,qC=0,qW=0,qSkip=0,qWrong=[],fcFlipped=false,mcqAnswered=false;
 function gotoPage(name,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ntab').forEach(b=>b.classList.remove('on'));
@@ -394,18 +416,25 @@ function gotoPage(name,btn){
   if(name==='quiz')resetQUI();
 }
 async function load(){
+  WORDS=[];
   try{
-    const res=await fetch('urdu_words.html');const html=await res.text();
-    const m=html.match(/<script>([\s\S]*?)<\/script>/);
+    const res=await fetch('urdu_words.html');
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const html=await res.text();
+    const m=html.match(/<script>([\s\S]*?)<\/script>/i);
     if(!m)throw new Error('Data not found');
-    const fn=new Function(m[1]+'; return ALL_DAYS_DATA;');
+    const fn=new Function(m[1]+'; return typeof ALL_DAYS_DATA !== "undefined" ? ALL_DAYS_DATA : [];');
     const data=fn();
-    data.forEach(d=>d.words.forEach(w=>WORDS.push({...w,day:d.day})));
-    const days=[...new Set(WORDS.map(w=>w.day))].sort((a,b)=>a-b);
-    document.getElementById('s-days').textContent=days.length;
-    document.getElementById('s-total').textContent=WORDS.length;
-    setWOTD();buildPills(days);buildQDS(days);render();
-  }catch(e){document.getElementById('wgrid').innerHTML=`<div class="empty"><div class="eico">⚠️</div>${e.message}</div>`;}
+    data.forEach(d=>d.words.forEach(w=>WORDS.push({...w,day:d.day,urdu:w.word})));
+  }catch(e){
+    console.warn('Dynamic load failed, using fallback dataset:', e);
+    WORDS=[];
+    FALLBACK_DAYS_DATA.forEach(d=>d.words.forEach(w=>WORDS.push({...w,day:d.day,urdu:w.word})));
+  }
+  const days=[...new Set(WORDS.map(w=>w.day))].sort((a,b)=>a-b);
+  document.getElementById('s-days').textContent=days.length;
+  document.getElementById('s-total').textContent=WORDS.length;
+  setWOTD();buildPills(days);buildQDS(days);render();
 }
 function setWOTD(){
   const key=new Date().toDateString();
@@ -426,7 +455,7 @@ function buildPills(days){
 }
 function mkP(label,count,active,onclick){const b=document.createElement('button');b.className='dpill'+(active?' on':'');b.innerHTML=`${label}<span class="dc">${count}</span>`;b.onclick=onclick;return b;}
 function buildQDS(days){const sel=document.getElementById('q-daysel');days.forEach(d=>{const o=document.createElement('option');o.value=d;o.textContent=`Day ${d}`;sel.appendChild(o);});}
-function hl(s,q){if(!q||!s)return s||'';return s.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark>$1</mark>');}
+function hl(s,q){if(!q||!s)return s||'';return String(s).replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark>$1</mark>');}
 function render(){
   const q=document.getElementById('srch').value.trim().toLowerCase();
   const s=document.getElementById('sort').value;
@@ -443,22 +472,32 @@ function render(){
 }
 function card(w,q=''){
   const bm=BOOKMARKS.has(w.id);
+  const cleanWord=w.word.replace(/'/g,"\\'");
   return `<div class="wcard${bm?' bm':''}" id="wc-${w.id}">
   <div class="wcard-top"><span class="wcard-num">#${String(w.id).padStart(2,'0')}</span>
   <button class="wcard-bmbtn${bm?' on':''}" onclick="toggleBM(${w.id})">${bm?'⭐':'☆'}</button></div>
   <div class="wcard-word">${hl(w.word,q)}</div>
-  <div class="wcard-ph"><span class="ph-icon" onclick="speak('${w.word.replace(/'/g,"\\'")}')">🔊</span>${hl(w.ph||'',q)}</div>
+  <div class="wcard-ph"><span class="ph-icon" onclick="speak('${cleanWord}')">🔊</span>${hl(w.ph||'',q)}</div>
   <span class="wcard-dtag">Day ${w.day}</span>
   <div class="wcard-sep"></div>
   <div class="wcard-en">${hl(w.en,q)}</div>
   <div class="wcard-bn"><span class="wcard-bn-label">বাং</span>${hl(w.bn,q)}</div>
 </div>`;
 }
+let voicesReady=false,cachedVoice=null;
+function pickVoice(){
+  const voices=speechSynthesis.getVoices?speechSynthesis.getVoices():[];
+  if(!voices.length)return null;
+  return voices.find(v=>v.lang&&(v.lang.toLowerCase().startsWith('ur')||v.lang.toLowerCase().startsWith('hi')))||null;
+}
+if('speechSynthesis' in window){
+  speechSynthesis.onvoiceschanged=()=>{cachedVoice=pickVoice();voicesReady=true;};
+}
 function speak(word){
-  if(!window.speechSynthesis){showToast('Browser audio support নেই');return;}
-  const u=new SpeechSynthesisUtterance(word);u.lang='ur-PK';u.rate=0.85;
-  const voices=speechSynthesis.getVoices();
-  const v=voices.find(x=>x.lang.startsWith('ur'));if(v)u.voice=v;
+  if(!('speechSynthesis' in window)){showToast('Browser audio support নেই');return;}
+  if(!voicesReady)cachedVoice=pickVoice();
+  const u=new SpeechSynthesisUtterance(word);u.lang=cachedVoice?cachedVoice.lang:'ur-PK';u.rate=0.85;
+  if(cachedVoice)u.voice=cachedVoice;
   speechSynthesis.cancel();speechSynthesis.speak(u);
 }
 function toggleBM(id){
@@ -485,7 +524,7 @@ function startQuiz(){
   const dv=document.getElementById('q-daysel').value;
   qWords=dv==='all'?[...WORDS]:WORDS.filter(w=>w.day==dv);
   if(qWords.length<2){showToast('কমপক্ষে ২টি শব্দ দরকার।');return;}
-  shuffle(qWords);qIdx=qC=qW=qSkip=0;qWrong=[];
+  shuffle(qWords);qIdx=qC=qW=qSkip=0;qWrong=[];mcqAnswered=false;
   document.getElementById('qsetup').style.display='none';
   document.getElementById('qresult').classList.remove('on');
   if(qType==='fc')startFC();else startMCQ();
@@ -517,6 +556,7 @@ function updFC(){
 function startMCQ(){document.getElementById('mcq-arena').classList.add('on');loadMCQ();}
 function loadMCQ(){
   if(qIdx>=qWords.length){showResult();return;}
+  mcqAnswered=false;
   const w=qWords[qIdx],tot=qWords.length;
   document.getElementById('mcq-fill').style.width=`${(qIdx/tot)*100}%`;
   document.getElementById('mcq-ctr').textContent=`${qIdx+1} / ${tot}`;
@@ -529,12 +569,20 @@ function loadMCQ(){
   else{qText=w.word;correctAns=w.en;getAns=x=>x.en;document.getElementById('mcq-qlbl').textContent='এই শব্দের অর্থ কী?';document.getElementById('mcq-qph').textContent=w.ph||'';}
   document.getElementById('mcq-qword').textContent=qText;
   const others=WORDS.filter(x=>x.id!==w.id);shuffle(others);
-  const opts=[{t:correctAns,ok:true},...others.slice(0,3).map(x=>({t:getAns(x),ok:false}))];
+  const seen=new Set([correctAns]);
+  const wrongList=[];
+  for(const x of others){
+    const val=getAns(x);
+    if(!seen.has(val)){seen.add(val);wrongList.push(val);if(wrongList.length===3)break;}
+  }
+  const opts=[{t:correctAns,ok:true},...wrongList.map(t=>({t,ok:false}))];
   shuffle(opts);
-  document.getElementById('mcq-opts').innerHTML=opts.map(o=>`<button class="mcqopt" onclick="mcqPick(this,${o.ok},'${correctAns.replace(/'/g,"\\'")}')">${o.t}</button>`).join('');
+  document.getElementById('mcq-opts').innerHTML=opts.map((o,i)=>`<button class="mcqopt" data-ok="${o.ok}" onclick="mcqPick(this,${o.ok})">${o.t}</button>`).join('');
 }
-function mcqPick(btn,ok,correctAns){
-  document.querySelectorAll('.mcqopt').forEach(b=>{b.classList.add('dis');if(b.textContent===correctAns)b.classList.add('ok');});
+function mcqPick(btn,ok){
+  if(mcqAnswered)return;
+  mcqAnswered=true;
+  document.querySelectorAll('.mcqopt').forEach(b=>{b.classList.add('dis');if(b.dataset.ok==='true')b.classList.add('ok');});
   if(!ok){btn.classList.add('ng');qW++;qWrong.push(qWords[qIdx]);}else qC++;
   document.getElementById('mcq-c').textContent=qC;
   document.getElementById('mcq-w').textContent=qW;
@@ -561,7 +609,7 @@ function showResult(){
   document.getElementById('rs-w').textContent=qW;
   document.getElementById('rs-s').textContent=qSkip;
   const wr=document.getElementById('wr-review');
-  if(qWrong.length){wr.innerHTML=`<div class="wr-head">ভুল হয়েছে (${qWrong.length})</div><div class="wr-list">${qWrong.map(w=>`<div class="wr-item"><div><div class="wi-word">${w.word}</div><div class="wi-en">${w.ph||''}</div></div><div class="wi-en">${w.en}</div></div>`).join('')}</div>`;}
+  if(qWrong.length){wr.innerHTML=`<div class="wr-head">ভুল হয়েছে (${qWrong.length})</div><div class="wr-list">${qWrong.map(w=>`<div class="wr-item"><div><div class="wi-word">${w.word}</div></div><div class="wi-en">${w.en}</div></div>`).join('')}</div>`;}
   else wr.innerHTML='';
 }
 function restartQ(){document.getElementById('qresult').classList.remove('on');startQuiz();}

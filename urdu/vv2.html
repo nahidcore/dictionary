@@ -237,6 +237,9 @@
       flex-wrap: wrap;
       gap: 4px;
       margin-bottom: 16px;
+      max-height: 140px;
+      overflow-y: auto;
+      scrollbar-width: thin;
     }
     .chip {
       font-size: 11px;
@@ -385,32 +388,26 @@
 <footer>Urdu Dictionary — উর্দু শব্দভান্ডার</footer>
 
 <script>
-/* ── ALL WORDS IN SINGLE PAGE ── */
-const ALL_WORDS = [
-  { id:1,  day:1, word:"Musawir",       en:"Artist",                     bn:"শিল্পী" },
-  { id:2,  day:1, word:"Taabeer",       en:"Reflection / Interpretation", bn:"প্রতিফলন / ব্যাখ্যা" },
-  { id:3,  day:1, word:"Nukht-e-Nazar", en:"Perspective",                bn:"দৃষ্টিভঙ্গি" },
-  { id:4,  day:1, word:"Shiddat",       en:"Passion / Intensity",        bn:"গভীর আবেগ / তীব্রতা" },
-  { id:5,  day:2, word:"Nigaahon",      en:"Eyes / Gaze",                bn:"চোখ / দৃষ্টি" },
-  { id:6,  day:2, word:"Karam",         en:"Kindness / Grace",           bn:"দয়া / অনুগ্রহ" },
-  { id:7,  day:2, word:"Ahista",        en:"Slowly",                     bn:"ধীরে ধীরে" },
-  { id:8,  day:2, word:"Ghurbat",       en:"Exile",                      bn:"নির্বাসন" },
-  { id:9,  day:3, word:"Filhaal",       en:"At Present",                 bn:"আপাতত / বর্তমানে" },
-  { id:10, day:3, word:"Zehnaseeb",     en:"Fortunate / Blessed",        bn:"সৌভাগ্যবান" },
-  { id:11, day:3, word:"Betahasha",     en:"Wildly / Excessively",       bn:"অত্যধিকভাবে" },
-  { id:12, day:3, word:"Khairiyat",     en:"Well-being",                 bn:"কুশলতা" },
-  { id:13, day:4, word:"Dilkashi",      en:"Charm / Attraction",         bn:"আকর্ষণ" },
-  { id:14, day:4, word:"Justajoo",      en:"Quest / Pursuit",            bn:"অনুসন্ধান" },
-  { id:15, day:4, word:"Fitoor",        en:"Obsession",                  bn:"মোহ / আসক্তি" },
-  { id:16, day:4, word:"Darasal",       en:"In Fact / Actually",         bn:"আসলে / প্রকৃতপক্ষে" },
-  { id:17, day:5, word:"Khubiya",       en:"Qualities",                  bn:"গুণাবলি" },
-  { id:18, day:5, word:"Khamiya",       en:"Shortcomings",               bn:"ত্রুটি / দুর্বলতা" },
-  { id:19, day:5, word:"Khauf",         en:"Terror / Fear",              bn:"আতঙ্ক / ভয়" },
-  { id:20, day:6, word:"Fizaa",         en:"Breeze / Atmosphere",        bn:"হালকা বাতাস / পরিবেশ" },
-  { id:21, day:6, word:"Karaar",        en:"Stability / Calmness",       bn:"স্থিরতা / শান্তি" },
-  { id:22, day:6, word:"Hasrat",        en:"Bittersweet longing / Yearning", bn:"আকুল আকাঙ্ক্ষা / অপূর্ণ বাসনার বেদনা" },
-  { id:23, day:7, word:"Rehbara",       en:"Guide / Wayfinder",          bn:"পথপ্রদর্শক / দিশারী" },
-  { id:24, day:7, word:"Suroor",        en:"Intoxicating joy / Ecstasy", bn:"উচ্ছ্বাসময় আনন্দ / মুগ্ধতাময় সুখ" },
+const FALLBACK_DAYS_DATA = [
+  { day: 1, words: [ { id:1, word:"Musawir", en:"Artist", bn:"শিল্পী" }, { id:2, word:"Taabeer", en:"Reflection / Interpretation", bn:"প্রতিফলন / ব্যাখ্যা" }, { id:3, word:"Nukht-e-Nazar", en:"Perspective", bn:"দৃষ্টিভঙ্গি" } ] },
+  { day: 2, words: [ { id:4, word:"Shiddat", en:"Passion / Intensity", bn:"গভীর আবেগ / তীব্রতা" }, { id:5, word:"Nigaahon", en:"Eyes / Gaze", bn:"চোখ / দৃষ্টি" }, { id:6, word:"Karam", en:"Kindness / Grace", bn:"দয়া / অনুগ্রহ" } ] },
+  { day: 3, words: [ { id:7, word:"Ahista", en:"Slowly", bn:"ধীরে ধীরে" }, { id:8, word:"Ghurbat", en:"Exile", bn:"নির্বাসন" }, { id:9, word:"Filhaal", en:"At Present", bn:"আপাতত / বর্তমানে" } ] },
+  { day: 4, words: [ { id:10, word:"Zehnaseeb", en:"Fortunate / Blessed", bn:"সৌভাগ্যবান" }, { id:11, word:"Betahasha", en:"Wildly / Excessively", bn:"অত্যধিকভাবে" }, { id:12, word:"Khairiyat", en:"Well-being", bn:"কুশলতা" } ] },
+  { day: 5, words: [ { id:13, word:"Dilkashi", en:"Charm / Attraction", bn:"আকর্ষণ" }, { id:14, word:"Justajoo", en:"Quest / Pursuit", bn:"অনুসন্ধান" }, { id:15, word:"Fitoor", en:"Obsession", bn:"মোহ / আসক্তি" } ] },
+  { day: 6, words: [ { id:16, word:"Darasal", en:"In Fact / Actually", bn:"আসলে / প্রকৃতপক্ষে" }, { id:17, word:"Khubiya", en:"Qualities", bn:"গুণাবলি" }, { id:18, word:"Khamiya", en:"Shortcomings", bn:"ত্রুটি / দুর্বলতা" } ] },
+  { day: 7, words: [ { id:19, word:"Khauf", en:"Terror / Fear", bn:"আতঙ্ক / ভয়" }, { id:20, word:"Fizaa", en:"Breeze / Atmosphere", bn:"হালকা বাতাস / পরিবেশ" }, { id:21, word:"Karaar", en:"Stability / Calmness", bn:"স্থিরতা / শান্তি" } ] },
+  { day: 8, words: [ { id:22, word:"Hasrat", en:"Bittersweet longing / Yearning", bn:"আকুল আকাঙ্ক্ষা / অপূর্ণ বাসনার বেদনা" }, { id:23, word:"Rehbara", en:"Guide / Wayfinder", bn:"পথপ্রদর্শক / দিশারী" }, { id:24, word:"Suroor", en:"Intoxicating joy / Ecstasy", bn:"উচ্ছ্বাসময় আনন্দ / মুগ্ধতাময় সুখ" } ] },
+  { day: 9, words: [ { id:25, word:"Raabta", en:"A connection between two people / Bond / Relationship", bn:"দুই মানুষের মধ্যে সংযোগ / বন্ধন / সম্পর্ক" }, { id:26, word:"Umeed", en:"Hope / Expectation / Optimism", bn:"আশা / প্রত্যাশা / আশাবাদ" }, { id:27, word:"Aarzu", en:"Yearning / Deep desire / Longing", bn:"আকুল আকাঙ্ক্ষা / গভীর ইচ্ছা / প্রবল বাসনা" } ] },
+  { day: 10, words: [ { id:28, word:"Mausam", en:"Season / Weather", bn:"ঋতু / আবহাওয়া" }, { id:29, word:"Falsafa", en:"Philosophy / Wisdom", bn:"দর্শন / প্রজ্ঞা" }, { id:30, word:"Hamdard", en:"Compassionate companion / Sympathizer", bn:"সহানুভূতিশীল সঙ্গী / সমব্যথী" } ] },
+  { day: 11, words: [ { id:31, word:"Fitrat", en:"Nature / Character / Disposition", bn:"প্রকৃতি / স্বভাব / চরিত্র" }, { id:32, word:"Darmiyan", en:"In between / Amid / Among", bn:"মাঝখানে / মধ্যবর্তী / মধ্যে" }, { id:33, word:"Barbaadi", en:"Destruction / Ruin / Devastation", bn:"ধ্বংস / সর্বনাশ / বিপর্যয়" } ] },
+  { day: 12, words: [ { id:34, word:"Talab", en:"Need / Desire / Demand", bn:"প্রয়োজন / আকাঙ্ক্ষা / চাহিদা" }, { id:35, word:"Shaamil", en:"Present / Included / Involved", bn:"উপস্থিত / অন্তর্ভুক্ত / জড়িত" }, { id:36, word:"Mohabbat", en:"Love / Affection / Deep love", bn:"ভালোবাসা / স্নেহ / গভীর প্রেম" } ] },
+  { day: 13, words: [ { id:37, word:"Shabnam", en:"Morning dew / Dew", bn:"সকালের শিশির / শিশির" }, { id:38, word:"Munasib", en:"Appropriate / Suitable / Proper", bn:"উপযুক্ত / মানানসই / যথাযথ" }, { id:39, word:"Bagair", en:"Without / Except", bn:"ছাড়া / ব্যতীত" } ] },
+  { day: 14, words: [ { id:40, word:"Sehar", en:"Early morning dawn / Dawn / Daybreak", bn:"ভোর / ঊষালগ্ন / প্রভাত" }, { id:41, word:"Abad", en:"Eternity / Everlasting / Prosperous", bn:"চিরকাল / অনন্তকাল / সমৃদ্ধ" }, { id:42, word:"Nishaat", en:"Happiness / Joy / Delight", bn:"সুখ / আনন্দ / উল্লাস" } ] },
+  { day: 15, words: [ { id:43, word:"Meelon", en:"Miles / Long distances", bn:"মাইল / দীর্ঘ দূরত্ব" }, { id:44, word:"Faasle", en:"Distance / Separation / Gap", bn:"দূরত্ব / বিচ্ছেদ / ব্যবধান" }, { id:45, word:"Judayi", en:"Separation / Parting / Distance", bn:"বিচ্ছেদ / আলাদা হওয়া / দূরত্ব" } ] },
+  { day: 16, words: [ { id:46, word:"Gumnaam", en:"Nameless / Anonymous / Unknown", bn:"নামহীন / অজ্ঞাত / অপরিচিত" }, { id:47, word:"Sargoshi", en:"Intimate whisper / Whisper / Murmur", bn:"ফিসফিস করে কথা বলা / কানে কানে বলা / মৃদুস্বরে বলা" }, { id:48, word:"Bayaan", en:"Narration / Expression / Thoughts", bn:"বর্ণনা / প্রকাশ / ভাবনা" } ] },
+  { day: 17, words: [ { id:49, word:"Koshish", en:"Effort / Attempt / Endeavor", bn:"প্রচেষ্টা / চেষ্টা / প্রয়াস" }, { id:50, word:"Dildaar", en:"Beloved / Loving / Kind-hearted", bn:"প্রিয়জন / স্নেহশীল / উদার হৃদয়ের" }, { id:51, word:"Mukammal", en:"Flawless / Complete / Perfect", bn:"নিখুঁত / সম্পূর্ণ / পরিপূর্ণ" } ] },
+  { day: 18, words: [ { id:52, word:"Nazaara", en:"Sight / View / Scenery", bn:"দৃশ্য / দৃশ্যপট / মনোরম দৃশ্য" }, { id:53, word:"Dard", en:"Physical or emotional pain / Sorrow", bn:"শারীরিক বা মানসিক ব্যথা / বেদনা" }, { id:54, word:"Tehzeeb", en:"Sophisticated manners / Culture / Etiquette", bn:"ভদ্রতা / শিষ্টাচার / সংস্কৃতি" } ] },
+  { day: 19, words: [ { id:55, word:"Kaynaat", en:"Universe / Creation / Existence", bn:"মহাবিশ্ব / সৃষ্টিজগৎ / অস্তিত্ব" }, { id:56, word:"Mulaqaat", en:"Meeting / Encounter / Reunion", bn:"সাক্ষাৎ / দেখা / পুনর্মিলন" }, { id:57, word:"Jazba", en:"Passion / Zeal / Strong feeling", bn:"আবেগ / উদ্দীপনা / প্রবল অনুভূতি" } ] }
 ];
 
 /* ── THEME ── */
@@ -433,7 +430,8 @@ function toggleTheme() {
 }
 
 /* ── STATE ── */
-let activeDay = 1;
+let ALL_WORDS = [];
+let activeDay = null;
 let activeChip = null;
 
 const searchEl  = document.getElementById('search');
@@ -447,19 +445,23 @@ const infoWords = document.getElementById('info-words');
 const dayTabsEl = document.getElementById('day-tabs');
 const chipsEl   = document.getElementById('chips');
 
-/* ── INIT ── */
-function init() {
-  const days = [...new Set(ALL_WORDS.map(w => w.day))].sort((a,b) => a-b);
-  infoDays.textContent  = days.length;
-  infoWords.textContent = ALL_WORDS.length;
-
-  buildDayTabs(days);
-  buildChips();
-  render();
-}
-
 function buildDayTabs(days) {
   dayTabsEl.innerHTML = '';
+  
+  const allBtn = document.createElement('button');
+  allBtn.className = 'day-btn' + (activeDay === null ? ' active' : '');
+  allBtn.innerHTML = `All<span class="count">${ALL_WORDS.length}</span>`;
+  allBtn.onclick = () => {
+    activeDay = null;
+    activeChip = null;
+    searchEl.value = '';
+    document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    buildChips();
+    render();
+  };
+  dayTabsEl.appendChild(allBtn);
+
   days.forEach(d => {
     const count = ALL_WORDS.filter(w => w.day === d).length;
     const btn = document.createElement('button');
@@ -480,17 +482,20 @@ function buildDayTabs(days) {
 
 function buildChips() {
   chipsEl.innerHTML = '';
-  ALL_WORDS.filter(w => w.day === activeDay).forEach(w => {
+  const pool = activeDay ? ALL_WORDS.filter(w => w.day === activeDay) : ALL_WORDS;
+  pool.forEach(w => {
     const b = document.createElement('button');
     b.className = 'chip' + (activeChip === w.word ? ' active' : '');
     b.textContent = w.word;
     b.onclick = () => {
       if (activeChip === w.word) {
-        activeChip = null; searchEl.value = '';
+        activeChip = null;
+        searchEl.value = '';
         b.classList.remove('active');
       } else {
         document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-        activeChip = w.word; searchEl.value = w.word;
+        activeChip = w.word;
+        searchEl.value = w.word;
         b.classList.add('active');
       }
       render();
@@ -500,14 +505,14 @@ function buildChips() {
 }
 
 function hl(str, q) {
-  if (!q) return str;
-  return str.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
+  if (!q || !str) return str || '';
+  return String(str).replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
 }
 
 function render() {
   const q = searchEl.value.trim().toLowerCase();
   const s = sortSel.value;
-  const pool = q ? ALL_WORDS : ALL_WORDS.filter(w => w.day === activeDay);
+  const pool = activeDay ? ALL_WORDS.filter(w => w.day === activeDay) : ALL_WORDS;
   let list = pool.filter(w =>
     !q || w.word.toLowerCase().includes(q) || w.en.toLowerCase().includes(q) || w.bn.includes(q)
   );
@@ -515,7 +520,7 @@ function render() {
   else if (s === 'za') list.sort((a,b) => b.word.localeCompare(a.word));
 
   statCount.textContent = list.length;
-  statDesc.textContent  = q ? 'সার্চ ফলাফল' : `Day ${activeDay} দেখানো হচ্ছে`;
+  statDesc.textContent  = q ? (activeDay ? `Day ${activeDay} · সার্চ ফলাফল` : 'সার্চ ফলাফল') : (activeDay ? `Day ${activeDay} দেখানো হচ্ছে` : 'সব শব্দ দেখানো হচ্ছে');
   metaEl.textContent    = list.length === pool.length
     ? `${list.length} টি শব্দ`
     : `${list.length} / ${pool.length} টি শব্দ`;
@@ -549,7 +554,43 @@ searchEl.addEventListener('input', () => {
 });
 sortSel.addEventListener('change', render);
 
-init();
+async function loadData() {
+  wordList.innerHTML = '<div class="empty-state">লোড হচ্ছে…</div>';
+  try {
+    const response = await fetch('urdu_words.html');
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    const html = await response.text();
+    const match = html.match(/<script>([\s\S]*?)<\/script>/i);
+    if (!match) throw new Error('No script tag found');
+    const scriptContent = match[1];
+    const fn = new Function(scriptContent + '; return typeof ALL_DAYS_DATA !== "undefined" ? ALL_DAYS_DATA : [];');
+    const allDaysData = fn();
+    ALL_WORDS = [];
+    allDaysData.forEach(dayData => {
+      dayData.words.forEach(w => {
+        ALL_WORDS.push({ ...w, day: dayData.day, urdu: w.word });
+      });
+    });
+  } catch (err) {
+    console.warn('Dynamic load failed, using fallback dataset:', err);
+    ALL_WORDS = [];
+    FALLBACK_DAYS_DATA.forEach(dayData => {
+      dayData.words.forEach(w => {
+        ALL_WORDS.push({ ...w, day: dayData.day, urdu: w.word });
+      });
+    });
+  }
+
+  const days = [...new Set(ALL_WORDS.map(w => w.day))].sort((a,b) => a-b);
+  infoDays.textContent  = days.length;
+  infoWords.textContent = ALL_WORDS.length;
+
+  buildDayTabs(days);
+  buildChips();
+  render();
+}
+
+loadData();
 </script>
 </body>
 </html>
