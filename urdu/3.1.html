@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urdu Dictionary — আধুনিক উর্দু শব্দভান্ডার</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Petrona:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Serif+Bengali:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #211a13;
+      --ink2: #4c4030;
+      --ink3: #8c7c63;
+      --paper: #f4ecdb;
+      --card: #fffcf5;
+      --card2: #ece0c8;
+      --line: #ddccab;
+      --line2: #c9b389;
+      --rubric: #a3162e;
+      --rubric-soft: #f7e2e1;
+      --rubric-glow: rgba(163, 22, 46, 0.16);
+      --gold: #9c6b18;
+      --gold-soft: #f3e6c4;
+      --indigo: #2c3a63;
+      --indigo-soft: #e3e7f1;
+      --r: 4px;
+      --r-sm: 3px;
+      --sh-sm: 0 1px 3px rgba(33,26,19,0.10), 0 1px 2px rgba(33,26,19,0.06);
+      --sh-md: 0 12px 28px -6px rgba(33,26,19,0.18), 0 8px 10px -6px rgba(33,26,19,0.08);
+      --sh-rubric: 0 8px 20px -6px rgba(163, 22, 46, 0.35);
+      --gutter: 24px;
+    }
+
+    [data-theme="dark"] {
+      --ink: #f1e6d3;
+      --ink2: #cdb999;
+      --ink3: #93826a;
+      --paper: #14100b;
+      --card: #1d1710;
+      --card2: #261e14;
+      --line: #382c1c;
+      --line2: #4f3f27;
+      --rubric: #e0576a;
+      --rubric-soft: #2c161a;
+      --rubric-glow: rgba(224, 87, 106, 0.22);
+      --gold: #d6ab52;
+      --gold-soft: #2a2110;
+      --indigo: #8f9fd4;
+      --indigo-soft: #1c2338;
+      --sh-sm: 0 1px 3px rgba(0,0,0,0.35);
+      --sh-md: 0 12px 28px -6px rgba(0,0,0,0.5);
+      --sh-rubric: 0 8px 20px -6px rgba(224, 87, 106, 0.3);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+    body {
+      font-family: 'Karla', sans-serif;
+      background-color: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--rubric);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--card);
+      border-bottom: 3px double var(--line2);
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      gap: 12px;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+    .nav-logo {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid var(--rubric);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--rubric);
+      font-family: 'Amiri', serif;
+      background: var(--rubric-soft);
+    }
+    .nav-title {
+      font-family: 'Petrona', serif;
+      font-style: italic;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      color: var(--ink);
+    }
+    .nav-sub {
+      font-size: 10.5px;
+      color: var(--ink3);
+      font-family: 'Noto Serif Bengali', serif;
+      margin-top: 1px;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .app-link-btn {
+      padding: 8px 16px;
+      border-radius: var(--r-sm);
+      background: var(--rubric);
+      color: #fff9f2;
+      text-decoration: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      box-shadow: var(--sh-rubric);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .app-link-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .theme-toggle {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line2);
+      border-radius: 50%;
+      background: var(--card2);
+      cursor: pointer;
+      color: var(--ink2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { background: var(--card); border-color: var(--rubric); color: var(--rubric); }
+    .theme-toggle svg { width: 16px; height: 16px; }
+    .theme-toggle .sun { display: none; }
+    [data-theme="dark"] .theme-toggle .moon { display: none; }
+    [data-theme="dark"] .theme-toggle .sun { display: block; }
+
+    /* PAGE LAYOUT */
+    .page {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: 236px 1fr;
+      gap: 0;
+      align-items: start;
+      border-left: 1px solid var(--line2);
+      border-right: 1px solid var(--line2);
+    }
+
+    /* HERO — word of the day */
+    .hero {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 34px var(--gutter);
+      border-bottom: 3px double var(--line2);
+      flex-wrap: wrap;
+    }
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--rubric);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--rubric);
+      display: inline-block;
+    }
+    .hero-word {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 600;
+      font-size: clamp(34px, 5vw, 52px);
+      line-height: 1;
+      color: var(--ink);
+      margin-top: 6px;
+    }
+    .hero-meanings {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 10px;
+      font-size: 13.5px;
+    }
+    .hero-en { color: var(--ink2); font-weight: 600; }
+    .hero-bn { color: var(--ink3); font-family: 'Noto Serif Bengali', serif; }
+    .hero-day {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--ink3);
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .hero-day b { color: var(--gold); font-size: 22px; display: block; }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: sticky;
+      top: 68px;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--line);
+      min-height: calc(100vh - 68px);
+      background: var(--card);
+    }
+    .panel-box {
+      padding: 20px var(--gutter) 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    .p-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--rubric);
+      margin-bottom: 8px;
+    }
+    .p-value {
+      font-family: 'Petrona', serif;
+      font-size: 34px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .p-sub {
+      font-size: 11.5px;
+      color: var(--ink3);
+      margin-top: 5px;
+      font-family: 'Noto Serif Bengali', serif;
+    }
+
+    .day-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      max-height: 220px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      margin-top: 4px;
+      padding-right: 4px;
+    }
+    .day-btn {
+      padding: 6px 10px;
+      border: none;
+      border-left: 2px solid transparent;
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink2);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .day-btn:hover { border-left-color: var(--line2); color: var(--rubric); background: var(--card2); }
+    .day-btn.active {
+      background: var(--rubric-soft);
+      border-left-color: var(--rubric);
+      color: var(--rubric);
+      font-weight: 700;
+    }
+    .day-btn .badge {
+      font-size: 9.5px;
+      padding: 1px 6px;
+      border-radius: 8px;
+      background: var(--card2);
+      color: var(--ink3);
+    }
+    .day-btn.active .badge { background: var(--rubric); color: #fff; }
+
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+      max-height: 160px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .chip {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      font-style: italic;
+      padding: 3px 4px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--line2);
+      border-radius: 0;
+      color: var(--ink2);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip:hover { color: var(--rubric); border-bottom-color: var(--rubric); }
+    .chip.active { color: var(--rubric); border-bottom-color: var(--rubric); font-weight: 700; }
+
+    /* CONTENT AREA */
+    .content-area { display: flex; flex-direction: column; min-width: 0; }
+    .toolbar { display: flex; gap: 10px; padding: 20px var(--gutter) 0; }
+    .search-wrap { flex: 1; position: relative; }
+    .search-wrap svg {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); color: var(--ink3); pointer-events: none;
+    }
+    .search-inp {
+      width: 100%;
+      padding: 11px 38px 11px 40px;
+      border: 1px solid var(--line2);
+      border-radius: var(--r-sm);
+      background: var(--card);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13.5px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .search-inp:focus {
+      border-color: var(--rubric);
+      box-shadow: 0 0 0 3px var(--rubric-glow);
+    }
+    .search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: var(--card2);
+      color: var(--ink3);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+    .search-clear.visible { display: flex; }
+
+    .sort-sel {
+      padding: 11px 14px;
+      border: 1px solid var(--line2);
+      border-radius: var(--r-sm);
+      background: var(--card);
+      color: var(--ink2);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 500;
+      outline: none;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      color: var(--ink3);
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 14px var(--gutter) 10px;
+      text-transform: uppercase;
+    }
+
+    /* TABLE - Desktop only */
+    .table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 var(--gutter) 24px;
+    }
+    table {
+      width: 100%;
+      min-width: 600px;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+    thead tr { border-bottom: 2px solid var(--ink); }
+    th {
+      padding: 10px 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      white-space: nowrap;
+    }
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s ease; }
+    tbody tr:hover { background: var(--card2); }
+
+    .col-id { width: 44px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--ink3); font-size: 11px; }
+    .col-urdu {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .col-en { font-weight: 600; color: var(--ink); }
+    .col-bn { font-family: 'Noto Serif Bengali', serif; color: var(--ink2); }
+    .col-day {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gold);
+      background: var(--gold-soft);
+    }
+    .col-actions {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+    .t-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--line2);
+      background: var(--card);
+      color: var(--ink3);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .t-btn svg { width: 13px; height: 13px; }
+    .t-btn:hover { background: var(--rubric); color: #fff; border-color: var(--rubric); }
+
+    mark {
+      background: var(--gold-soft);
+      color: var(--gold);
+      border-radius: 2px;
+      padding: 0 3px;
+      font-weight: 700;
+    }
+    .empty-row {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--ink3);
+      font-size: 14px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: var(--sh-md);
+      max-width: calc(100vw - 40px);
+      text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      text-align: center;
+      padding: 26px 20px;
+      font-size: 11.5px;
+      color: var(--ink3);
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.3px;
+      border-top: 1px solid var(--line2);
+      max-width: 1140px;
+      margin: 0 auto;
+      border-left: 1px solid var(--line2);
+      border-right: 1px solid var(--line2);
+    }
+
+    /* RESPONSIVE - Mobile */
+    @media (max-width: 768px) {
+      :root { --gutter: 16px; }
+      .page { 
+        grid-template-columns: 1fr; 
+        padding: 0 0 40px;
+        border-left: none;
+        border-right: none;
+      }
+      .sidebar { 
+        position: static; 
+        min-height: auto; 
+        border-right: none; 
+        border-bottom: 3px double var(--line2);
+      }
+      .day-selector { 
+        max-height: none; 
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .day-btn {
+        border: 1px solid var(--line2);
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+      .day-btn:hover { border-color: var(--rubric); }
+      .day-btn.active {
+        background: var(--rubric);
+        color: white;
+        border-color: var(--rubric);
+      }
+      .day-btn.active .badge { background: rgba(255,255,255,0.2); color: white; }
+      .chips-container { max-height: none; }
+      .nav-sub { display: none; }
+      .toolbar { flex-wrap: wrap; padding-top: 16px; }
+      .search-wrap { flex-basis: 100%; }
+      .sort-sel { flex: 1; }
+      .hero { padding-top: 22px; padding-bottom: 22px; gap: 16px; }
+      .hero-day { margin-left: 0; text-align: left; }
+      .meta-bar { padding-top: 12px; padding-bottom: 8px; }
+      
+      /* Hide table on mobile */
+      .table-scroll { display: none; }
+      
+      /* Show mobile cards */
+      .mobile-cards { 
+        display: block; 
+        padding: 0 var(--gutter) 24px;
+      }
+    }
+
+    /* Mobile Cards - Hidden by default on desktop */
+    .mobile-cards {
+      display: none;
+    }
+    .word-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      padding: 16px;
+      transition: all 0.2s ease;
+    }
+    .word-card:hover {
+      border-color: var(--line2);
+      box-shadow: var(--sh-sm);
+    }
+    .word-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .word-card-urdu {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--ink);
+    }
+    .word-card-day {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gold);
+      background: var(--gold-soft);
+    }
+    .word-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .word-card-en {
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 14px;
+    }
+    .word-card-bn {
+      font-family: 'Noto Serif Bengali', serif;
+      color: var(--ink2);
+      font-size: 13px;
+    }
+    .word-card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .word-card-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid var(--line2);
+      background: var(--card2);
+      color: var(--ink2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .word-card-btn:hover {
+      background: var(--rubric);
+      color: white;
+      border-color: var(--rubric);
+    }
+    .word-card-btn svg { width: 14px; height: 14px; }
+
+    @media (max-width: 420px) {
+      .app-link-btn span.lbl { display: none; }
+      nav { padding: 0 14px; }
+      .hero-word { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo">اُ</div>
+    <div style="min-width:0;">
+      <div class="nav-title">Urdu Dictionary</div>
+      <div class="nav-sub">আধুনিক উর্দু শব্দভান্ডার</div>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <a href="v2.4.html" class="app-link-btn"><span class="lbl">Full App &amp; Quiz</span></a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="thbtn" aria-label="Toggle theme">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="page">
+
+  <div class="hero" id="hero">
+    <div>
+      <div class="hero-eyebrow">আজকের শব্দ &middot; Word of the Day</div>
+      <div class="hero-word" id="hero-word">—</div>
+      <div class="hero-meanings">
+        <span class="hero-en" id="hero-en">—</span>
+        <span class="hero-bn" id="hero-bn">—</span>
+      </div>
+    </div>
+    <div class="hero-day">
+      DAY<b id="hero-day-num">—</b>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="panel-box">
+      <div class="p-label">মোট শব্দভান্ডার</div>
+      <div class="p-value" id="total-count">—</div>
+      <div class="p-sub">১৯ দিনের সংকলন</div>
+    </div>
+
+    <div class="panel-box">
+      <div class="p-label">Day ফিল্টার</div>
+      <div class="day-selector" id="day-selector">লোড হচ্ছে…</div>
+    </div>
+
+    <div class="panel-box" style="border-bottom:none;">
+      <div class="p-label">দ্রুত শব্দ নির্বাচন</div>
+      <div class="chips-container" id="chips"></div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content-area">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input class="search-inp" type="search" id="search" placeholder="Urdu, English বা বাংলা অর্থ খুঁজুন…" autocomplete="off" />
+        <button class="search-clear" id="search-clear" onclick="clearSearch()" aria-label="Clear search">✕</button>
+      </div>
+      <select class="sort-sel" id="sort">
+        <option value="default">DAY 1 → 19</option>
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+      </select>
+    </div>
+
+    <div class="meta-bar">
+      <span id="meta-count">—</span>
+      <span id="meta-filter">সব দিন</span>
+    </div>
+
+    <!-- Desktop Table -->
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-id">Fol.</th>
+            <th>Urdu Word</th>
+            <th>English Meaning</th>
+            <th>বাংলা অর্থ</th>
+            <th>Day</th>
+            <th style="text-align:right">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="6" class="empty-row">লোড হচ্ছে…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile Cards -->
+    <div class="mobile-cards" id="mobile-cards"></div>
+  </main>
+</div>
+
+<footer>
+  URDU DICTIONARY — উর্দু লুঘাত · ১৯ দিন ও ৫৭ শব্দ সমগ্র
+</footer>
+
+<script>
+  const FALLBACK_DAYS_DATA = [
+    { day: 1, words: [ { id:1, word:"Musawir", en:"Artist", bn:"শিল্পী" }, { id:2, word:"Taabeer", en:"Reflection / Interpretation", bn:"প্রতিফলন / ব্যাখ্যা" }, { id:3, word:"Nukht-e-Nazar", en:"Perspective", bn:"দৃষ্টিভঙ্গি" } ] },
+    { day: 2, words: [ { id:4, word:"Shiddat", en:"Passion / Intensity", bn:"গভীর আবেগ / তীব্রতা" }, { id:5, word:"Nigaahon", en:"Eyes / Gaze", bn:"চোখ / দৃষ্টি" }, { id:6, word:"Karam", en:"Kindness / Grace", bn:"দয়া / অনুগ্রহ" } ] },
+    { day: 3, words: [ { id:7, word:"Ahista", en:"Slowly", bn:"ধীরে ধীরে" }, { id:8, word:"Ghurbat", en:"Exile", bn:"নির্বাসন" }, { id:9, word:"Filhaal", en:"At Present", bn:"আপাতত / বর্তমানে" } ] },
+    { day: 4, words: [ { id:10, word:"Zehnaseeb", en:"Fortunate / Blessed", bn:"সৌভাগ্যবান" }, { id:11, word:"Betahasha", en:"Wildly / Excessively", bn:"অত্যধিকভাবে" }, { id:12, word:"Khairiyat", en:"Well-being", bn:"কুশলতা" } ] },
+    { day: 5, words: [ { id:13, word:"Dilkashi", en:"Charm / Attraction", bn:"আকর্ষণ" }, { id:14, word:"Justajoo", en:"Quest / Pursuit", bn:"অনুসন্ধান" }, { id:15, word:"Fitoor", en:"Obsession", bn:"মোহ / আসক্তি" } ] },
+    { day: 6, words: [ { id:16, word:"Darasal", en:"In Fact / Actually", bn:"আসলে / প্রকৃতপক্ষে" }, { id:17, word:"Khubiya", en:"Qualities", bn:"গুণাবলি" }, { id:18, word:"Khamiya", en:"Shortcomings", bn:"ত্রুটি / দুর্বলতা" } ] },
+    { day: 7, words: [ { id:19, word:"Khauf", en:"Terror / Fear", bn:"আতঙ্ক / ভয়" }, { id:20, word:"Fizaa", en:"Breeze / Atmosphere", bn:"হালকা বাতাস / পরিবেশ" }, { id:21, word:"Karaar", en:"Stability / Calmness", bn:"স্থিরতা / শান্তি" } ] },
+    { day: 8, words: [ { id:22, word:"Hasrat", en:"Bittersweet longing / Yearning", bn:"আকুল আকাঙ্ক্ষা / অপূর্ণ বাসনার বেদনা" }, { id:23, word:"Rehbara", en:"Guide / Wayfinder", bn:"পথপ্রদর্শক / দিশারী" }, { id:24, word:"Suroor", en:"Intoxicating joy / Ecstasy", bn:"উচ্ছ্বাসময় আনন্দ / মুগ্ধতাময় সুখ" } ] },
+    { day: 9, words: [ { id:25, word:"Raabta", en:"A connection between two people / Bond / Relationship", bn:"দুই মানুষের মধ্যে সংযোগ / বন্ধন / সম্পর্ক" }, { id:26, word:"Umeed", en:"Hope / Expectation / Optimism", bn:"আশা / প্রত্যাশা / আশাবাদ" }, { id:27, word:"Aarzu", en:"Yearning / Deep desire / Longing", bn:"আকুল আকাঙ্ক্ষা / গভীর ইচ্ছা / প্রবল বাসনা" } ] },
+    { day: 10, words: [ { id:28, word:"Mausam", en:"Season / Weather", bn:"ঋতু / আবহাওয়া" }, { id:29, word:"Falsafa", en:"Philosophy / Wisdom", bn:"দর্শন / প্রজ্ঞা" }, { id:30, word:"Hamdard", en:"Compassionate companion / Sympathizer", bn:"সহানুভূতিশীল সঙ্গী / সমব্যথী" } ] },
+    { day: 11, words: [ { id:31, word:"Fitrat", en:"Nature / Character / Disposition", bn:"প্রকৃতি / স্বভাব / চরিত্র" }, { id:32, word:"Darmiyan", en:"In between / Amid / Among", bn:"মাঝখানে / মধ্যবর্তী / মধ্যে" }, { id:33, word:"Barbaadi", en:"Destruction / Ruin / Devastation", bn:"ধ্বংস / সর্বনাশ / বিপর্যয়" } ] },
+    { day: 12, words: [ { id:34, word:"Talab", en:"Need / Desire / Demand", bn:"প্রয়োজন / আকাঙ্ক্ষা / চাহিদা" }, { id:35, word:"Shaamil", en:"Present / Included / Involved", bn:"উপস্থিত / অন্তর্ভুক্ত / জড়িত" }, { id:36, word:"Mohabbat", en:"Love / Affection / Deep love", bn:"ভালোবাসা / স্নেহ / গভীর প্রেম" } ] },
+    { day: 13, words: [ { id:37, word:"Shabnam", en:"Morning dew / Dew", bn:"সকালের শিশির / শিশির" }, { id:38, word:"Munasib", en:"Appropriate / Suitable / Proper", bn:"উপযুক্ত / মানানসই / যথাযথ" }, { id:39, word:"Bagair", en:"Without / Except", bn:"ছাড়া / ব্যতীত" } ] },
+    { day: 14, words: [ { id:40, word:"Sehar", en:"Early morning dawn / Dawn / Daybreak", bn:"ভোর / ঊষালগ্ন / প্রভাত" }, { id:41, word:"Abad", en:"Eternity / Everlasting / Prosperous", bn:"চিরকাল / অনন্তকাল / সমৃদ্ধ" }, { id:42, word:"Nishaat", en:"Happiness / Joy / Delight", bn:"সুখ / আনন্দ / উল্লাস" } ] },
+    { day: 15, words: [ { id:43, word:"Meelon", en:"Miles / Long distances", bn:"মাইল / দীর্ঘ দূরত্ব" }, { id:44, word:"Faasle", en:"Distance / Separation / Gap", bn:"দূরত্ব / বিচ্ছেদ / ব্যবধান" }, { id:45, word:"Judayi", en:"Separation / Parting / Distance", bn:"বিচ্ছেদ / আলাদা হওয়া / দূরত্ব" } ] },
+    { day: 16, words: [ { id:46, word:"Gumnaam", en:"Nameless / Anonymous / Unknown", bn:"নামহীন / অজ্ঞাত / অপরিচিত" }, { id:47, word:"Sargoshi", en:"Intimate whisper / Whisper / Murmur", bn:"ফিসফিস করে কথা বলা / কানে কানে বলা / মৃদুস্বরে বলা" }, { id:48, word:"Bayaan", en:"Narration / Expression / Thoughts", bn:"বর্ণনা / প্রকাশ / ভাবনা" } ] },
+    { day: 17, words: [ { id:49, word:"Koshish", en:"Effort / Attempt / Endeavor", bn:"প্রচেষ্টা / চেষ্টা / প্রয়াস" }, { id:50, word:"Dildaar", en:"Beloved / Loving / Kind-hearted", bn:"প্রিয়জন / স্নেহশীল / উদার হৃদয়ের" }, { id:51, word:"Mukammal", en:"Flawless / Complete / Perfect", bn:"নিখুঁত / সম্পূর্ণ / পরিপূর্ণ" } ] },
+    { day: 18, words: [ { id:52, word:"Nazaara", en:"Sight / View / Scenery", bn:"দৃশ্য / দৃশ্যপট / মনোরম দৃশ্য" }, { id:53, word:"Dard", en:"Physical or emotional pain / Sorrow", bn:"শারীরিক বা মানসিক ব্যথা / বেদনা" }, { id:54, word:"Tehzeeb", en:"Sophisticated manners / Culture / Etiquette", bn:"ভদ্রতা / শিষ্টাচার / সংস্কৃতি" } ] },
+    { day: 19, words: [ { id:55, word:"Kaynaat", en:"Universe / Creation / Existence", bn:"মহাবিশ্ব / সৃষ্টিজগৎ / অস্তিত্ব" }, { id:56, word:"Mulaqaat", en:"Meeting / Encounter / Reunion", bn:"সাক্ষাৎ / দেখা / পুনর্মিলন" }, { id:57, word:"Jazba", en:"Passion / Zeal / Strong feeling", bn:"আবেগ / উদ্দীপনা / প্রবল অনুভূতি" } ] }
+  ];
+
+  let words = [];
+  let activeChip = null;
+  let activeDay = null;
+
+  const ROOT = document.documentElement;
+  const tbody   = document.getElementById('tbody');
+  const mobileCards = document.getElementById('mobile-cards');
+  const search  = document.getElementById('search');
+  const sort    = document.getElementById('sort');
+  const metaCount = document.getElementById('meta-count');
+  const metaFilter = document.getElementById('meta-filter');
+  const chips   = document.getElementById('chips');
+  const totalEl = document.getElementById('total-count');
+  const daySelector = document.getElementById('day-selector');
+  const searchClear = document.getElementById('search-clear');
+
+  function setTheme(t) {
+    ROOT.setAttribute('data-theme', t);
+    document.getElementById('thbtn').setAttribute('aria-label', t === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    localStorage.setItem('urdu_theme', t);
+  }
+  function toggleTheme() {
+    setTheme(ROOT.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function hl(text, q) {
+    const safe = escapeHtml(text || '');
+    if (!q) return safe;
+    const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+    return safe.replace(re, '<mark>$1</mark>');
+  }
+
+  function setHero(w) {
+    if (!w) return;
+    document.getElementById('hero-word').textContent = w.word;
+    document.getElementById('hero-en').textContent = w.en;
+    document.getElementById('hero-bn').textContent = w.bn;
+    document.getElementById('hero-day-num').textContent = w.day;
+  }
+
+  function buildDaySelector(days) {
+    daySelector.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'day-btn' + (activeDay === null ? ' active' : '');
+    allBtn.innerHTML = `সব দিন <span class="badge">${words.length}</span>`;
+    allBtn.onclick = () => {
+      activeDay = null;
+      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+      allBtn.classList.add('active');
+      render();
+    };
+    daySelector.appendChild(allBtn);
+
+    days.forEach(d => {
+      const cnt = words.filter(w => w.day === d).length;
+      const b = document.createElement('button');
+      b.className = 'day-btn' + (activeDay === d ? ' active' : '');
+      b.innerHTML = `Day ${d} <span class="badge">${cnt}</span>`;
+      b.onclick = () => {
+        activeDay = d;
+        document.querySelectorAll('.day-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        render();
+      };
+      daySelector.appendChild(b);
+    });
+  }
+
+  function buildChips() {
+    chips.innerHTML = '';
+    words.forEach(w => {
+      const btn = document.createElement('button');
+      btn.className = 'chip' + (activeChip === w.word ? ' active' : '');
+      btn.textContent = w.word;
+      btn.onclick = () => {
+        if (activeChip === w.word) {
+          activeChip = null;
+          search.value = '';
+          btn.classList.remove('active');
+        } else {
+          document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+          activeChip = w.word;
+          search.value = w.word;
+          btn.classList.add('active');
+        }
+        render();
+        search.focus();
+      };
+      chips.appendChild(btn);
+    });
+  }
+
+  function render() {
+    const q = search.value.trim().toLowerCase();
+    const s = sort.value;
+    searchClear.classList.toggle('visible', q.length > 0);
+
+    let pool = activeDay ? words.filter(w => w.day === activeDay) : words;
+    let list = pool.filter(w =>
+      !q ||
+      w.word.toLowerCase().includes(q) ||
+      w.en.toLowerCase().includes(q) ||
+      w.bn.toLowerCase().includes(q)
+    );
+
+    if (s === 'az') list.sort((a,b) => a.word.localeCompare(b.word));
+    else if (s === 'za') list.sort((a,b) => b.word.localeCompare(a.word));
+
+    totalEl.textContent = words.length;
+    metaCount.textContent = list.length === pool.length
+      ? `${list.length} টি শব্দ প্রদর্শিত`
+      : `${list.length} / ${pool.length} টি শব্দ প্রদর্শিত`;
+    metaFilter.textContent = activeDay ? `Day ${activeDay}${q ? ' · ফিল্টার করা' : ''}` : `সব দিন${q ? ' · ফিল্টার করা' : ''}`;
+
+    // Render desktop table
+    if (!list.length) {
+      tbody.innerHTML = `<tr><td colspan="6"><div class="empty-row">🔍 কোনো শব্দ পাওয়া যায়নি।</div></td></tr>`;
+    } else {
+      tbody.innerHTML = list.map(w => `
+        <tr>
+          <td class="col-id">#${String(w.id).padStart(2,'0')}</td>
+          <td class="col-urdu">${hl(w.word, q)}</td>
+          <td class="col-en">${hl(w.en, q)}</td>
+          <td class="col-bn">${hl(w.bn, q)}</td>
+          <td><span class="col-day">${w.day}</span></td>
+          <td>
+            <div class="col-actions">
+              <button class="t-btn" data-action="speak" data-id="${w.id}" title="উচ্চারণ শুনুন" aria-label="Listen to pronunciation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              </button>
+              <button class="t-btn" data-action="copy" data-id="${w.id}" title="কপি করুন" aria-label="Copy word">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Render mobile cards
+    if (!list.length) {
+      mobileCards.innerHTML = `<div class="empty-row" style="text-align:center; padding:60px 20px; color:var(--ink3);">🔍 কোনো শব্দ পাওয়া যায়নি।</div>`;
+    } else {
+      mobileCards.innerHTML = list.map(w => `
+        <div class="word-card">
+          <div class="word-card-header">
+            <div class="word-card-urdu">${hl(w.word, q)}</div>
+            <span class="word-card-day">${w.day}</span>
+          </div>
+          <div class="word-card-body">
+            <div class="word-card-en">${hl(w.en, q)}</div>
+            <div class="word-card-bn">${hl(w.bn, q)}</div>
+          </div>
+          <div class="word-card-actions">
+            <button class="word-card-btn" data-action="speak" data-id="${w.id}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+              শুনুন
+            </button>
+            <button class="word-card-btn" data-action="copy" data-id="${w.id}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              কপি
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Event delegation for both desktop table and mobile cards
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const id = Number(btn.dataset.id);
+    const w = words.find(x => x.id === id);
+    if (!w) return;
+    if (btn.dataset.action === 'speak') speak(w.word);
+    else if (btn.dataset.action === 'copy') copyWord(w.word, w.en, w.bn);
+  });
+
+  function clearSearch() {
+    search.value = '';
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    activeChip = null;
+    render();
+    search.focus();
+  }
+
+  /* ============ SPEECH ============ */
+  let voicesReady = false, cachedVoice = null;
+  function pickVoice() {
+    const voices = speechSynthesis.getVoices ? speechSynthesis.getVoices() : [];
+    if (!voices.length) return null;
+    return voices.find(v => v.lang && (v.lang.toLowerCase().startsWith('ur') || v.lang.toLowerCase().startsWith('hi'))) || null;
+  }
+  if ('speechSynthesis' in window) {
+    speechSynthesis.onvoiceschanged = () => { cachedVoice = pickVoice(); voicesReady = true; };
+  }
+  function speak(word) {
+    if (!('speechSynthesis' in window)) { showToast('এই ব্রাউজারে audio নেই'); return; }
+    if (!voicesReady) cachedVoice = pickVoice();
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = cachedVoice ? cachedVoice.lang : 'ur-PK';
+    u.rate = 0.84;
+    if (cachedVoice) u.voice = cachedVoice;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }
+
+  /* ============ COPY ============ */
+  async function copyWord(word, en, bn) {
+    const text = `${word} — ${en} — ${bn}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast(`কপি হয়েছে: "${word}"`);
+    } catch(e) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(`কপি হয়েছে: "${word}"`);
+      } catch(e2) {
+        showToast('কপি করা যায়নি');
+      }
+    }
+  }
+
+  /* ============ TOAST ============ */
+  let toastT;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  search.addEventListener('input', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    activeChip = null;
+    if (search.value.trim() && activeDay !== null) {
+      activeDay = null;
+      document.querySelectorAll('.day-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+    }
+    render();
+  });
+  sort.addEventListener('change', render);
+
+  async function loadData() {
+    const savedTheme = localStorage.getItem('urdu_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+
+    try {
+      const res = await fetch('urdu_words.html');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const html = await res.text();
+      const match = html.match(/<script>([\s\S]*?)<\/script>/i);
+      if (!match) throw new Error('No script found');
+      const fn = new Function(match[1] + '; return typeof ALL_DAYS_DATA !== "undefined" ? ALL_DAYS_DATA : [];');
+      const data = fn();
+      words = [];
+      data.forEach(d => {
+        d.words.forEach(w => words.push({ ...w, day: d.day, urdu: w.word }));
+      });
+    } catch (e) {
+      console.warn('Dynamic fetch failed, using fallback dataset:', e);
+      words = [];
+      FALLBACK_DAYS_DATA.forEach(d => {
+        d.words.forEach(w => words.push({ ...w, day: d.day, urdu: w.word }));
+      });
+    }
+
+    const days = [...new Set(words.map(w => w.day))].sort((a,b) => a - b);
+    buildDaySelector(days);
+    buildChips();
+
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+    setHero(words[dayOfYear % words.length]);
+
+    render();
+  }
+
+  loadData();
+</script>
+</body>
+</html>
