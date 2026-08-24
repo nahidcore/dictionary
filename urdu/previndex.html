@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urdu Dictionary — আধুনিক উর্দু শব্দভান্ডার</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0f172a;
+      --ink2: #334155;
+      --ink3: #64748b;
+      --paper: #f8fafc;
+      --card: #ffffff;
+      --card2: #f1f5f9;
+      --line: #e2e8f0;
+      --line2: #cbd5e1;
+      --primary: #4f46e5;
+      --primary-soft: #eef2ff;
+      --primary-glow: rgba(79, 70, 229, 0.16);
+      --gold: #d97706;
+      --gold-soft: #fef3c7;
+      --green: #059669;
+      --green-soft: #d1fae5;
+      --r: 16px;
+      --r-sm: 10px;
+      --sh-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --sh-md: 0 10px 25px -5px rgba(0,0,0,0.07), 0 8px 10px -6px rgba(0,0,0,0.04);
+      --sh-primary: 0 10px 25px -5px rgba(79, 70, 229, 0.3);
+    }
+
+    [data-theme="dark"] {
+      --ink: #f8fafc;
+      --ink2: #cbd5e1;
+      --ink3: #94a3b8;
+      --paper: #090d16;
+      --card: #131b2e;
+      --card2: #1e293b;
+      --line: #1e293b;
+      --line2: #334155;
+      --primary: #818cf8;
+      --primary-soft: #1e1b4b;
+      --primary-glow: rgba(129, 140, 248, 0.2);
+      --gold: #fbbf24;
+      --gold-soft: #2e2305;
+      --green: #34d399;
+      --green-soft: #062d1f;
+      --sh-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --sh-md: 0 10px 25px -5px rgba(0,0,0,0.4);
+      --sh-primary: 0 10px 25px -5px rgba(129, 140, 248, 0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--paper);
+      background-image: radial-gradient(var(--line) 1px, transparent 0);
+      background-size: 24px 24px;
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: var(--sh-sm);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .nav-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #fff;
+      font-family: 'Amiri', serif;
+      box-shadow: var(--sh-primary);
+    }
+    .nav-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .nav-sub {
+      font-size: 11px;
+      color: var(--ink3);
+      font-family: 'Noto Serif Bengali', serif;
+      margin-top: -2px;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .app-link-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: #fff;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 700;
+      box-shadow: var(--sh-primary);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .app-link-btn:hover { opacity: 0.95; transform: translateY(-1px); }
+    .theme-toggle {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--card2);
+      cursor: pointer;
+      color: var(--ink2);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .theme-toggle:hover { background: var(--card); transform: scale(1.05); }
+
+    /* PAGE LAYOUT */
+    .page {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* SIDEBAR */
+    .sidebar { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 14px; }
+    .panel-box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      padding: 18px;
+      box-shadow: var(--sh-sm);
+    }
+    .p-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 6px;
+    }
+    .p-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+    .p-sub {
+      font-size: 11.5px;
+      color: var(--ink3);
+      margin-top: 4px;
+      font-family: 'Noto Serif Bengali', serif;
+    }
+
+    .day-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      max-height: 220px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      margin-top: 8px;
+      padding-right: 4px;
+    }
+    .day-btn {
+      padding: 6px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--card2);
+      color: var(--ink2);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .day-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .day-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .day-btn .badge {
+      font-size: 9.5px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.06);
+    }
+    .day-btn.active .badge { background: rgba(255,255,255,0.25); color: #fff; }
+
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+      max-height: 160px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .chip {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--card2);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      color: var(--ink2);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); }
+    .chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+    /* CONTENT AREA */
+    .content-area { display: flex; flex-direction: column; gap: 14px; }
+    .toolbar { display: flex; gap: 10px; }
+    .search-wrap { flex: 1; position: relative; }
+    .search-wrap svg {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); color: var(--ink3); pointer-events: none;
+    }
+    .search-inp {
+      width: 100%;
+      padding: 12px 38px 12px 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      background: var(--card);
+      color: var(--ink);
+      font-size: 13.5px;
+      outline: none;
+      transition: all 0.2s ease;
+      box-shadow: var(--sh-sm);
+    }
+    .search-inp:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+    .search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: var(--card2);
+      color: var(--ink3);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+    .search-clear.visible { display: flex; }
+
+    .sort-sel {
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-sm);
+      background: var(--card);
+      color: var(--ink2);
+      font-size: 12.5px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      box-shadow: var(--sh-sm);
+    }
+
+    .meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink3);
+    }
+
+    /* TABLE */
+    .table-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--sh-sm);
+      overflow: hidden;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+    thead tr {
+      background: var(--card2);
+      border-bottom: 1px solid var(--line);
+    }
+    th {
+      padding: 12px 18px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+    td {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s ease; }
+    tbody tr:hover { background: var(--card2); }
+
+    .col-id { width: 50px; font-weight: 700; color: var(--ink3); font-size: 11.5px; }
+    .col-urdu {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--ink);
+    }
+    .col-en { font-weight: 600; color: var(--ink); }
+    .col-bn { font-family: 'Noto Serif Bengali', serif; color: var(--ink2); }
+    .col-day {
+      display: inline-block;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .col-actions {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+    .t-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink3);
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+    .t-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: scale(1.1); }
+
+    mark {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 3px;
+      padding: 0 3px;
+      font-weight: 600;
+    }
+    .empty-row {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--ink3);
+      font-size: 14px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: var(--sh-md);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 12px;
+      color: var(--ink3);
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .page { grid-template-columns: 1fr; padding: 18px 14px 40px; }
+      .sidebar { position: static; }
+      .day-selector { max-height: 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo">اُ</div>
+    <div>
+      <div class="nav-title">Urdu Dictionary</div>
+      <div class="nav-sub">আধুনিক উর্দু শব্দভান্ডার</div>
+    </div>
+  </a>
+  <div class="nav-actions">
+    <a href="v2.4.html" class="app-link-btn">✨ Full App & Quiz</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="thbtn" aria-label="Toggle theme">🌙</button>
+  </div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="page">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="panel-box">
+      <div class="p-label">মোট শব্দভান্ডার</div>
+      <div class="p-value" id="total-count">—</div>
+      <div class="p-sub">১৯ দিনের সংকলন</div>
+    </div>
+
+    <div class="panel-box">
+      <div class="p-label">Day ফিল্টার</div>
+      <div class="day-selector" id="day-selector">লোড হচ্ছে…</div>
+    </div>
+
+    <div class="panel-box">
+      <div class="p-label">দ্রুত শব্দ নির্বাচন</div>
+      <div class="chips-container" id="chips"></div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content-area">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input class="search-inp" type="search" id="search" placeholder="Urdu, English বা বাংলা অর্থ খুঁজুন…" autocomplete="off" />
+        <button class="search-clear" id="search-clear" onclick="clearSearch()" aria-label="Clear search">✕</button>
+      </div>
+      <select class="sort-sel" id="sort">
+        <option value="default">Default (Day 1 → 19)</option>
+        <option value="az">A → Z (Alphabetical)</option>
+        <option value="za">Z → A</option>
+      </select>
+    </div>
+
+    <div class="meta-bar">
+      <span id="meta-count">—</span>
+      <span id="meta-filter">সব দিন</span>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-id">#</th>
+            <th>Urdu Word</th>
+            <th>English Meaning</th>
+            <th>বাংলা অর্থ</th>
+            <th>Day</th>
+            <th style="text-align:right">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <tr><td colspan="6" class="empty-row">লোড হচ্ছে…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<footer>
+  Urdu Dictionary &mdash; উর্দু লুঘাত · ১৯ দিন ও ৫৭ শব্দ সমগ্র
+</footer>
+
+<script>
+  const FALLBACK_DAYS_DATA = [
+    { day: 1, words: [ { id:1, word:"Musawir", en:"Artist", bn:"শিল্পী" }, { id:2, word:"Taabeer", en:"Reflection / Interpretation", bn:"প্রতিফলন / ব্যাখ্যা" }, { id:3, word:"Nukht-e-Nazar", en:"Perspective", bn:"দৃষ্টিভঙ্গি" } ] },
+    { day: 2, words: [ { id:4, word:"Shiddat", en:"Passion / Intensity", bn:"গভীর আবেগ / তীব্রতা" }, { id:5, word:"Nigaahon", en:"Eyes / Gaze", bn:"চোখ / দৃষ্টি" }, { id:6, word:"Karam", en:"Kindness / Grace", bn:"দয়া / অনুগ্রহ" } ] },
+    { day: 3, words: [ { id:7, word:"Ahista", en:"Slowly", bn:"ধীরে ধীরে" }, { id:8, word:"Ghurbat", en:"Exile", bn:"নির্বাসন" }, { id:9, word:"Filhaal", en:"At Present", bn:"আপাতত / বর্তমানে" } ] },
+    { day: 4, words: [ { id:10, word:"Zehnaseeb", en:"Fortunate / Blessed", bn:"সৌভাগ্যবান" }, { id:11, word:"Betahasha", en:"Wildly / Excessively", bn:"অত্যধিকভাবে" }, { id:12, word:"Khairiyat", en:"Well-being", bn:"কুশলতা" } ] },
+    { day: 5, words: [ { id:13, word:"Dilkashi", en:"Charm / Attraction", bn:"আকর্ষণ" }, { id:14, word:"Justajoo", en:"Quest / Pursuit", bn:"অনুসন্ধান" }, { id:15, word:"Fitoor", en:"Obsession", bn:"মোহ / আসক্তি" } ] },
+    { day: 6, words: [ { id:16, word:"Darasal", en:"In Fact / Actually", bn:"আসলে / প্রকৃতপক্ষে" }, { id:17, word:"Khubiya", en:"Qualities", bn:"গুণাবলি" }, { id:18, word:"Khamiya", en:"Shortcomings", bn:"ত্রুটি / দুর্বলতা" } ] },
+    { day: 7, words: [ { id:19, word:"Khauf", en:"Terror / Fear", bn:"আতঙ্ক / ভয়" }, { id:20, word:"Fizaa", en:"Breeze / Atmosphere", bn:"হালকা বাতাস / পরিবেশ" }, { id:21, word:"Karaar", en:"Stability / Calmness", bn:"স্থিরতা / শান্তি" } ] },
+    { day: 8, words: [ { id:22, word:"Hasrat", en:"Bittersweet longing / Yearning", bn:"আকুল আকাঙ্ক্ষা / অপূর্ণ বাসনার বেদনা" }, { id:23, word:"Rehbara", en:"Guide / Wayfinder", bn:"পথপ্রদর্শক / দিশারী" }, { id:24, word:"Suroor", en:"Intoxicating joy / Ecstasy", bn:"উচ্ছ্বাসময় আনন্দ / মুগ্ধতাময় সুখ" } ] },
+    { day: 9, words: [ { id:25, word:"Raabta", en:"A connection between two people / Bond / Relationship", bn:"দুই মানুষের মধ্যে সংযোগ / বন্ধন / সম্পর্ক" }, { id:26, word:"Umeed", en:"Hope / Expectation / Optimism", bn:"আশা / প্রত্যাশা / আশাবাদ" }, { id:27, word:"Aarzu", en:"Yearning / Deep desire / Longing", bn:"আকুল আকাঙ্ক্ষা / গভীর ইচ্ছা / প্রবল বাসনা" } ] },
+    { day: 10, words: [ { id:28, word:"Mausam", en:"Season / Weather", bn:"ঋতু / আবহাওয়া" }, { id:29, word:"Falsafa", en:"Philosophy / Wisdom", bn:"দর্শন / প্রজ্ঞা" }, { id:30, word:"Hamdard", en:"Compassionate companion / Sympathizer", bn:"সহানুভূতিশীল সঙ্গী / সমব্যথী" } ] },
+    { day: 11, words: [ { id:31, word:"Fitrat", en:"Nature / Character / Disposition", bn:"প্রকৃতি / স্বভাব / চরিত্র" }, { id:32, word:"Darmiyan", en:"In between / Amid / Among", bn:"মাঝখানে / মধ্যবর্তী / মধ্যে" }, { id:33, word:"Barbaadi", en:"Destruction / Ruin / Devastation", bn:"ধ্বংস / সর্বনাশ / বিপর্যয়" } ] },
+    { day: 12, words: [ { id:34, word:"Talab", en:"Need / Desire / Demand", bn:"প্রয়োজন / আকাঙ্ক্ষা / চাহিদা" }, { id:35, word:"Shaamil", en:"Present / Included / Involved", bn:"উপস্থিত / অন্তর্ভুক্ত / জড়িত" }, { id:36, word:"Mohabbat", en:"Love / Affection / Deep love", bn:"ভালোবাসা / স্নেহ / গভীর প্রেম" } ] },
+    { day: 13, words: [ { id:37, word:"Shabnam", en:"Morning dew / Dew", bn:"সকালের শিশির / শিশির" }, { id:38, word:"Munasib", en:"Appropriate / Suitable / Proper", bn:"উপযুক্ত / মানানসই / যথাযথ" }, { id:39, word:"Bagair", en:"Without / Except", bn:"ছাড়া / ব্যতীত" } ] },
+    { day: 14, words: [ { id:40, word:"Sehar", en:"Early morning dawn / Dawn / Daybreak", bn:"ভোর / ঊষালগ্ন / প্রভাত" }, { id:41, word:"Abad", en:"Eternity / Everlasting / Prosperous", bn:"চিরকাল / অনন্তকাল / সমৃদ্ধ" }, { id:42, word:"Nishaat", en:"Happiness / Joy / Delight", bn:"সুখ / আনন্দ / উল্লাস" } ] },
+    { day: 15, words: [ { id:43, word:"Meelon", en:"Miles / Long distances", bn:"মাইল / দীর্ঘ দূরত্ব" }, { id:44, word:"Faasle", en:"Distance / Separation / Gap", bn:"দূরত্ব / বিচ্ছেদ / ব্যবধান" }, { id:45, word:"Judayi", en:"Separation / Parting / Distance", bn:"বিচ্ছেদ / আলাদা হওয়া / দূরত্ব" } ] },
+    { day: 16, words: [ { id:46, word:"Gumnaam", en:"Nameless / Anonymous / Unknown", bn:"নামহীন / অজ্ঞাত / অপরিচিত" }, { id:47, word:"Sargoshi", en:"Intimate whisper / Whisper / Murmur", bn:"ফিসফিস করে কথা বলা / কানে কানে বলা / মৃদুস্বরে বলা" }, { id:48, word:"Bayaan", en:"Narration / Expression / Thoughts", bn:"বর্ণনা / প্রকাশ / ভাবনা" } ] },
+    { day: 17, words: [ { id:49, word:"Koshish", en:"Effort / Attempt / Endeavor", bn:"প্রচেষ্টা / চেষ্টা / প্রয়াস" }, { id:50, word:"Dildaar", en:"Beloved / Loving / Kind-hearted", bn:"প্রিয়জন / স্নেহশীল / উদার হৃদয়ের" }, { id:51, word:"Mukammal", en:"Flawless / Complete / Perfect", bn:"নিখুঁত / সম্পূর্ণ / পরিপূর্ণ" } ] },
+    { day: 18, words: [ { id:52, word:"Nazaara", en:"Sight / View / Scenery", bn:"দৃশ্য / দৃশ্যপট / মনোরম দৃশ্য" }, { id:53, word:"Dard", en:"Physical or emotional pain / Sorrow", bn:"শারীরিক বা মানসিক ব্যথা / বেদনা" }, { id:54, word:"Tehzeeb", en:"Sophisticated manners / Culture / Etiquette", bn:"ভদ্রতা / শিষ্টাচার / সংস্কৃতি" } ] },
+    { day: 19, words: [ { id:55, word:"Kaynaat", en:"Universe / Creation / Existence", bn:"মহাবিশ্ব / সৃষ্টিজগৎ / অস্তিত্ব" }, { id:56, word:"Mulaqaat", en:"Meeting / Encounter / Reunion", bn:"সাক্ষাৎ / দেখা / পুনর্মিলন" }, { id:57, word:"Jazba", en:"Passion / Zeal / Strong feeling", bn:"আবেগ / উদ্দীপনা / প্রবল অনুভূতি" } ] }
+  ];
+
+  let words = [];
+  let activeChip = null;
+  let activeDay = null;
+
+  const ROOT = document.documentElement;
+  const tbody   = document.getElementById('tbody');
+  const search  = document.getElementById('search');
+  const sort    = document.getElementById('sort');
+  const metaCount = document.getElementById('meta-count');
+  const metaFilter = document.getElementById('meta-filter');
+  const chips   = document.getElementById('chips');
+  const totalEl = document.getElementById('total-count');
+  const daySelector = document.getElementById('day-selector');
+  const searchClear = document.getElementById('search-clear');
+
+  function setTheme(t) {
+    ROOT.setAttribute('data-theme', t);
+    document.getElementById('thbtn').textContent = t === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('urdu_theme', t);
+  }
+  function toggleTheme() {
+    setTheme(ROOT.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  }
+
+  function hl(text, q) {
+    if (!q || !text) return text || '';
+    const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+    return String(text).replace(re, '<mark>$1</mark>');
+  }
+
+  function buildDaySelector(days) {
+    daySelector.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'day-btn' + (activeDay === null ? ' active' : '');
+    allBtn.innerHTML = `সব দিন (All) <span class="badge">${words.length}</span>`;
+    allBtn.onclick = () => {
+      activeDay = null;
+      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+      allBtn.classList.add('active');
+      render();
+    };
+    daySelector.appendChild(allBtn);
+
+    days.forEach(d => {
+      const cnt = words.filter(w => w.day === d).length;
+      const b = document.createElement('button');
+      b.className = 'day-btn' + (activeDay === d ? ' active' : '');
+      b.innerHTML = `Day ${d} <span class="badge">${cnt}</span>`;
+      b.onclick = () => {
+        activeDay = d;
+        document.querySelectorAll('.day-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        render();
+      };
+      daySelector.appendChild(b);
+    });
+  }
+
+  function buildChips() {
+    chips.innerHTML = '';
+    words.forEach(w => {
+      const btn = document.createElement('button');
+      btn.className = 'chip' + (activeChip === w.word ? ' active' : '');
+      btn.textContent = w.word;
+      btn.onclick = () => {
+        if (activeChip === w.word) {
+          activeChip = null;
+          search.value = '';
+          btn.classList.remove('active');
+        } else {
+          document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+          activeChip = w.word;
+          search.value = w.word;
+          btn.classList.add('active');
+        }
+        render();
+        search.focus();
+      };
+      chips.appendChild(btn);
+    });
+  }
+
+  function render() {
+    const q = search.value.trim().toLowerCase();
+    const s = sort.value;
+    searchClear.classList.toggle('visible', q.length > 0);
+
+    let pool = activeDay ? words.filter(w => w.day === activeDay) : words;
+    let list = pool.filter(w =>
+      !q ||
+      w.word.toLowerCase().includes(q) ||
+      w.en.toLowerCase().includes(q) ||
+      w.bn.includes(q) ||
+      (w.ph || '').toLowerCase().includes(q)
+    );
+
+    if (s === 'az') list.sort((a,b) => a.word.localeCompare(b.word));
+    else if (s === 'za') list.sort((a,b) => b.word.localeCompare(a.word));
+
+    totalEl.textContent = words.length;
+    metaCount.textContent = list.length === pool.length
+      ? `${list.length} টি শব্দ প্রদর্শিত`
+      : `${list.length} / ${pool.length} টি শব্দ প্রদর্শিত`;
+    metaFilter.textContent = activeDay ? `Day ${activeDay}${q ? ' · ফিল্টার করা' : ''}` : `সব দিন${q ? ' · ফিল্টার করা' : ''}`;
+
+    if (!list.length) {
+      tbody.innerHTML = `<tr><td colspan="6"><div class="empty-row">🔍 কোনো শব্দ পাওয়া যায়নি।</div></td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(w => {
+      const cleanW = w.word.replace(/'/g,"\\'");
+      const cleanEn = w.en.replace(/'/g,"\\'");
+      const cleanBn = w.bn.replace(/'/g,"\\'");
+      return `
+        <tr>
+          <td class="col-id">#${String(w.id).padStart(2,'0')}</td>
+          <td class="col-urdu">${hl(w.word, q)}</td>
+          <td class="col-en">${hl(w.en, q)}</td>
+          <td class="col-bn">${hl(w.bn, q)}</td>
+          <td><span class="col-day">Day ${w.day}</span></td>
+          <td>
+            <div class="col-actions">
+              <button class="t-btn" onclick="speak('${cleanW}')" title="উচ্চারণ শুনুন" aria-label="Listen">🔊</button>
+              <button class="t-btn" onclick="copyWord('${cleanW}', '${cleanEn}', '${cleanBn}')" title="কপি করুন" aria-label="Copy">📋</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function clearSearch() {
+    search.value = '';
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    activeChip = null;
+    render();
+    search.focus();
+  }
+
+  /* ============ SPEECH ============ */
+  let voicesReady = false, cachedVoice = null;
+  function pickVoice() {
+    const voices = speechSynthesis.getVoices ? speechSynthesis.getVoices() : [];
+    if (!voices.length) return null;
+    return voices.find(v => v.lang && (v.lang.toLowerCase().startsWith('ur') || v.lang.toLowerCase().startsWith('hi'))) || null;
+  }
+  if ('speechSynthesis' in window) {
+    speechSynthesis.onvoiceschanged = () => { cachedVoice = pickVoice(); voicesReady = true; };
+  }
+  function speak(word) {
+    if (!('speechSynthesis' in window)) { showToast('এই ব্রাউজারে audio নেই'); return; }
+    if (!voicesReady) cachedVoice = pickVoice();
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = cachedVoice ? cachedVoice.lang : 'ur-PK';
+    u.rate = 0.84;
+    if (cachedVoice) u.voice = cachedVoice;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+  }
+
+  /* ============ COPY ============ */
+  async function copyWord(word, en, bn) {
+    const text = `${word} — ${en} — ${bn}`;
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast(`📋 কপি হয়েছে: "${word}"`);
+    } catch(e) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(`📋 কপি হয়েছে: "${word}"`);
+      } catch(e2) {
+        showToast('কপি করা যায়নি');
+      }
+    }
+  }
+
+  /* ============ TOAST ============ */
+  let toastT;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  search.addEventListener('input', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    activeChip = null;
+    render();
+  });
+  sort.addEventListener('change', render);
+
+  async function loadData() {
+    const savedTheme = localStorage.getItem('urdu_theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+
+    try {
+      const res = await fetch('urdu_words.html');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const html = await res.text();
+      const match = html.match(/<script>([\s\S]*?)<\/script>/i);
+      if (!match) throw new Error('No script found');
+      const fn = new Function(match[1] + '; return typeof ALL_DAYS_DATA !== "undefined" ? ALL_DAYS_DATA : [];');
+      const data = fn();
+      words = [];
+      data.forEach(d => {
+        d.words.forEach(w => words.push({ ...w, day: d.day, urdu: w.word }));
+      });
+    } catch (e) {
+      console.warn('Dynamic fetch failed, using fallback dataset:', e);
+      words = [];
+      FALLBACK_DAYS_DATA.forEach(d => {
+        d.words.forEach(w => words.push({ ...w, day: d.day, urdu: w.word }));
+      });
+    }
+
+    const days = [...new Set(words.map(w => w.day))].sort((a,b) => a - b);
+    buildDaySelector(days);
+    buildChips();
+    render();
+  }
+
+  loadData();
+</script>
+</body>
+</html>
+
